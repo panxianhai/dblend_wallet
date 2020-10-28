@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DBLend | Decentralized Lending</title>
+  <link rel="icon" href="./img/favicon.ico" sizes="32x32" type="image/png">
+  <link rel="stylesheet" href="lib/bootstrap.min.css"/>
+  <link rel="stylesheet" href="css/style.min.css" />
+  <style>
+    .lock {
+
+      background-color: rgb(255, 255, 255);
+      border: 0px;
+      border-radius: 12px;
+      box-shadow: rgb(226, 214, 207) 6px 6px 12px, rgb(247, 244, 242) -12px -12px 24px -2px;
+      color: rgb(190, 103, 38);
+      font-size: 16px;
+      text-align: center;
+      font-weight: 700;
+      height: 56px;
+      line-height: 56px;
+      -webkit-box-pack: center;
+      padding-left: 24px;
+      padding-right: 24px;
+      width: 190px;
+      margin: 30vh auto;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body class="staking">
+  <div id='header' class="col-md-offset-3 logo">
+    <div class="left">
+      <a class="navbar-brand" href="#">
+        <p><img src="img/DBL-LOGO.png" alt="" /></p>
+        <p class="mobile hidden-xs">
+          <span class="span1">DBLend </span>
+        </p>
+      </a>
+      <ul class="nav navbar-nav topurl">
+        <li class="navhome" onclick='goPage("index")'>Home</li>
+        <li class="active" onclick='goPage("staking")'>Mining</li>
+      </ul>
+    </div>
+    <div class="right  col-md-offset-4">
+      <div class="dropdown">
+        <div onclick="getLoginAccount()" class="mywallet" data-toggle="modal" data-target=".bs-example-modal-sm">
+          <p>Connect</p>
+        </div>
+        <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+          <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+              <p class="zt1">My Account</p>
+              <div class="imgs">
+                <img src="img/DBL-LOGO-MAX.png" alt="" />
+              </div>
+              <p class="num myDBLBalance" id="dblBalance">Locked</p>
+              <p class="balance">DBL balance</p>
+              <div class="sign" onclick="logout()">sign out</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id='main'>
+    <div id='unlockDiv'  onclick="getLoginAccount()">
+      <p color="#be6726" font-size="16" size="56" class="lock">🔓 Unlock Wallet</p>
+    </div>
+    <div class="content">
+      <div class="top">
+        <p><img src="img/DBL-LOGO-MAX.png" alt="" /></p>
+        <p class="t1">Stake DIBI and Harvest DBL !!!</p>
+      </div>
+
+      <div class="products">
+        <div class="product">
+          <div class="box">
+            <div class="img">
+              <img src="img/DIBI-LOGO.png" alt="" />
+            </div>
+            <p>
+              <span id="stakedAmount">0.000</span>
+              <span>DIBI Staked</span>
+            </p>
+            <div id="contBtnApprove" class="contBtn" onclick="approveOrStake()">
+              Approve DIBI
+            </div>
+          </div>
+        </div>
+
+        <div class="product">
+          <div class="box">
+            <div class="img">
+              <img src="img/DBL-LOGO.png" alt="" />
+            </div>
+            <p>
+              <span id="dblearn">0.000</span>
+              <span>DBL Earned</span>
+            </p>
+            <div id="harvest" class="contBtn" onclick="Harvast()">
+              Harvest
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="withdrow" class="withdrow" onclick="withdraw()">
+        Harvest & Withdraw
+      </div>
+
+      <div class="col-xs-12 col-md-12 textTip">
+        ⭐️ Every time you stake tokens, the smart contract will automatically harvest rewards for you !
+      </div>
+    </div>
+  </div>
+
+  <div class="stakeDIBI">
+    <div class="bg" onclick="hideStakeDiv()"></div>
+    <div class="box">
+      <p>Stake DIBI</p>
+      <div class="img">
+        <img src="img/DBL-LOGO.png" alt="" />
+      </div>
+
+      <p class="num">
+        <span id="DIBIAvailable"> - </span>
+        <span> DIBI Available </span>
+      </p>
+
+      <div class="input">
+        <!-- form-control -->
+
+        <input type="text" class="stakeAmount" value="0" />
+
+
+        <div class="rights">
+          <p class="di">DIBI</p>
+          <p class="inBtn" onclick="setMaxAmount()">Max</p>
+        </div>
+      </div>
+      <div class="changeBtns">
+        <div class="changeBtn" onclick="hideStakeDiv()">Cancel</div>
+        <div class="changeBtn" onclick="stakeDIBI()">Stake</div>
+      </div>
+    </div>
+  </div>
+  <div id='footer'>
+
+    <p>
+      <a href="https://twitter.com/DibiGlobal" target="_blank">Twitter</a>
+    </p>
+    <p>
+      <a href="https://www.facebook.com/dibiglobal" target="_blank">Facebook</a>
+    </p>
+    <p>
+      <a href="https://t.me/dblendmining" target="_blank">Telegram</a>
+    </p>
+    <p>
+      <a href="https://medium.com/@dibiglobalex" target="_blank">Medium</a>
+    </p>
+
+  </div>
+</body>
+<script src="lib/web3.min.js"></script>
+
+<script src="lib/jquery.min.js"></script>
+<script src="lib/bootstrap.min.js"></script>
+<script src="js/abi.js"></script>
+<script src="js/connect.js"></script>
+<script src="js/staking.js"></script>
+<script>
+
+</script>
+
+</html>

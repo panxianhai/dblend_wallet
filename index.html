@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DBLend | Decentralized Lending</title>
+  <link rel="icon" href="./img/favicon.ico" sizes="32x32" type="image/png">
+  <link rel="stylesheet" href="lib/bootstrap.min.css"/>
+  <link rel="stylesheet" href="css/style.min.css" />
+  <style>
+
+  </style>
+</head>
+
+<body class="home">
+  <div id='header' class="col-md-offset-3 logo">
+    <div class="left">
+      <a class="navbar-brand" href="#">
+        <p><img src="img/DBL-LOGO.png" alt="" /></p>
+        <p class="mobile hidden-xs">
+          <span class="span1">DBLend </span>
+        </p>
+      </a>
+      <ul class="nav navbar-nav topurl">
+        <li class="active" onclick='goPage("index")'>Home</li>
+        <li class="navstaking" onclick='goPage("staking")'>Mining</li>
+        <!-- <li class="navstaking" onclick='goAbout'>About</li> -->
+      </ul>
+    </div>
+
+    <div class="right col-md-offset-4">
+      <div class="dropdown">
+        <div onclick="getLoginAccount()" class="mywallet" data-toggle="modal" data-target=".bs-example-modal-sm">
+          <p>Connect</p>
+        </div>
+        <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+          <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+              <p class="zt1">My Account</p>
+              <div class="imgs">
+                <img src="img/DBL-LOGO-MAX.png" alt="" />
+              </div>
+              <p class="num myDBLBalance" id="dblBalance">Locked</p>
+              <p class="balance">DBL Balance</p>
+              <div class="sign" onclick="logout()">sign out</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id='main'>
+
+    <div class="middle">
+      <div class="content">
+        <p><img src="img/DBL-LOGO-MAX.png" alt="" /></p>
+        <p class="t2">It's a good day to mine DBL.</p>
+        <p class="t1">
+          DBLend is a decentralized ecological application of DeFi.
+        </p>
+      </div>
+    </div>
+
+    <div class="products">
+      <div class="product">
+        <div class="box">
+          <div class="top">
+            <div class="left"><img src="img/DBL-LOGO-MAX.png" alt="" /></div>
+            <div class="right">
+              <p>Your DBL Balance</p>
+              <p id="yDblBalance" class='myDBLBalance'>Locked</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="product">
+        <div class="box">
+          <div class="top">
+            <div class="left"><img src="img/DBL-LOGO-MAX.png" alt="" /></div>
+            <div class="right">
+              <p>Total DBL Supply</p>
+              <p id="Totalsupply">-</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xs-12 col-md-12 textTip">
+      🏆<b>Pro Tip</b>: DBL rewards per 10 Minutes.
+    </div>
+
+
+  </div>
+
+  <div id='footer'>
+
+    <p>
+      <a href="https://twitter.com/DibiGlobal" target="_blank">Twitter</a>
+    </p>
+    <p>
+      <a href="https://www.facebook.com/dibiglobal" target="_blank">Facebook</a>
+    </p>
+    <p>
+      <a href="https://t.me/dblendmining" target="_blank">Telegram</a>
+    </p>
+    <p>
+      <a href="https://medium.com/@dibiglobalex" target="_blank">Medium</a>
+    </p>
+
+  </div>
+</body>
+<script src="lib/web3.min.js"></script>
+<script src="lib/jquery.min.js"></script>
+<script src="lib/bootstrap.min.js"></script>
+<script src="js/abi.js"></script>
+<script src="js/connect.js"></script>
+<script src="js/index.js"></script>
+
+
+
+
+
+<script>
+
+
+</script>
+<script>
+
+
+</script>
+
+</html>
