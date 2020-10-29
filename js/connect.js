@@ -14,7 +14,7 @@ if (typeof window.ethereum !== "undefined") {
   var MinerContract = new Web3Provider.eth.Contract(ABI, MINNER_CONTRACT_ADDR);
 
 }
-var storage = window.sessionStorage;
+var storage = window.localStorage;
 
 $(document).ready(function () {
   ethereum.on("accountsChanged", (accounts) => {
@@ -23,14 +23,14 @@ $(document).ready(function () {
     } else if (loginAccount !== accounts[0]) {
       loginAccount = accounts[0];
       storage.setItem("loginAccount", loginAccount);
-      loadPage();
     }
   });
+  loadPage();
 });
 
 // 获取当前登录的去中心化钱包地址（帐号）
 async function getLoginAccount() {
-  let loginAccount = storage.getItem("loginAccount");
+  var loginAccount = storage.getItem("loginAccount");
   if (loginAccount == null || loginAccount == "null") {
     await ethereum
       .request({ method: "eth_requestAccounts" })
@@ -42,6 +42,7 @@ async function getLoginAccount() {
         console.log(error);
       });
   }
+  loadPage();
 }
 
 function fromWei(s) {

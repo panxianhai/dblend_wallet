@@ -1,12 +1,11 @@
 var dibiMax = 0;
 var isApprove = true;
-$()
-{
-  $('.content').hide()
-}
+
+var loginAccount = storage.getItem("loginAccount");
+
 async function loadPage() {
   if (typeof window.ethereum !== "undefined") {
-    let loginAccount = storage.getItem("loginAccount");
+    var loginAccount = storage.getItem("loginAccount");
     if (loginAccount != null && loginAccount != "null") {
 
       $('.mywallet p').text(loginAccount.substr(0, 4) + '...' + loginAccount.substr(-4))
@@ -17,8 +16,8 @@ async function loadPage() {
       var stakedAmount = await MinerContract.methods.accountStoked(loginAccount).call();
       $('#stakedAmount').text(Number(fromWei(stakedAmount)).toFixed(2));
 
-      $('#unlockDiv').hide();
       $('.content').show();
+      $('#unlockDiv').hide();
 
       //allow
       var dblearn = document.getElementById("dblearn");
@@ -40,6 +39,10 @@ async function loadPage() {
         }
         div.innerHTML = "Stake DIBI";
       }
+    }else{
+      $('#unlockDiv').show();
+      $('.content').hide();
+
     }
   }
 }
@@ -120,4 +123,3 @@ function hideStakeDiv() {
 function setMaxAmount() {
   $(".stakeAmount").val(dibiMax);
 }
-

@@ -3,7 +3,7 @@
   // get index.html information
   async function loadPage() {
 
-    let loginAccount = storage.getItem("loginAccount");
+    var loginAccount = storage.getItem("loginAccount");
 
     //DBL total supply
     let totalSupply = await MinerContract.methods.totalSupply().call();
