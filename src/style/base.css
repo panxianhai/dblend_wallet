@@ -1,0 +1,239 @@
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+font,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+textarea,
+input {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+address,
+cite,
+dfn,
+em,
+var,
+i {
+  font-style: normal;
+}
+
+body {
+  font-size: 16px;
+  line-height: 1.5;
+  color: #333;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+  font-size: 100%;
+  font-weight: normal;
+}
+button,
+input,
+select,
+textarea {
+  font-size: 100%;
+}
+fieldset,
+img {
+  border: 0;
+}
+a,
+img {
+  -webkit-touch-callout: none;
+}
+a,
+a:active,
+a:focus,
+a:hover,
+a:visited {
+  text-decoration: none;
+}
+input[type="password"],
+input[type="text"],
+textarea {
+  resize: none;
+  outline: 0;
+  -webkit-appearance: none;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  background: #fff;
+  background: none;
+  outline: none;
+  border: 0px;
+}
+input {
+  resize: none;
+  outline: 0;
+  -webkit-appearance: none;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  background: #fff;
+  background: none;
+  outline: none;
+  border: 0px;
+}
+/* input:-internal-autofill-selected{
+  margin: 0px;
+  padding: 0px;
+  resize: none;
+  outline: 0;
+  -webkit-appearance: none;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  background: #fff;
+  background: none;
+  outline: none;
+  border: 0px;
+  background-color: red;
+    background-image: none !important;
+    color: -internal-light-dark(black, white) !important;
+}  */
+select {
+  /*Chrome和Firefox里面的边框是不一样的，所以复写了一下*/
+  border: none;
+  /*很关键：将默认的select选择框样式清除*/
+  /* 去掉三角 */
+  /* appearance:none; */
+  /* -moz-appearance:none; */
+  /* -webkit-appearance:none; */
+  
+  /*将背景改为红色*/
+
+  /*加padding防止文字覆盖*/
+  /* padding-right: 14px; */
+  }
+
+  /* select {
+    清除baiselect的边框样式 
+    border: none;
+   清除select聚焦du时候的边框颜zhi色
+    outline:none;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    } */
+    /* option::-ms-expand{
+    display: none;
+    } */
+    option{
+      /* Firefox */
+    /* -moz-appearance:none;  */
+    /* Safari 和 Chrome */
+    /* -webkit-appearance:none; */
+    /* appearance:none;
+    outline: none;
+    border: 0; */
+    }
+    /* --背景色dao字zhuan体颜色--*/
+    /* option:hover{
+    color:#ffffff;
+    background-color:#ffffff;
+    outline: none;
+    border: 0;
+    } */
+ul,
+ol {
+  list-style: none;
+}
+
+:focus {
+  outline: none;
+}
+*{
+  font-family: Medium;
+}
+
+
+/* 设置引用字体库 */
+@font-face{
+  font-family:Black;
+  src:url("../assets/font/NotoSansHans-Black.otf");
+}
+@font-face{
+  font-family:Bold;
+  src:url("../assets/font/NotoSansHans-Bold.otf");
+}@font-face{
+  font-family:DemiLight;
+  src:url("../assets/font/NotoSansHans-DemiLight.otf");
+}@font-face{
+  font-family:Light;
+  src:url("../assets/font/NotoSansHans-Light.otf");
+}@font-face{
+  font-family:Medium;
+  src:url("../assets/font/NotoSansHans-Medium.otf");
+}@font-face{
+  font-family:Regular;
+  src:url("../assets/font/NotoSansHans-Regular.otf");
+}@font-face{
+  font-family:ThinWindows;
+  src:url("../assets/font/NotoSansHans-Thin-Windows.otf");
+
+}
