@@ -70,12 +70,14 @@ export default {
   //Mint的页面
   MintDIBI: "铸造 DIBI",
   Price: "价格",
-  per: "",
+  per: "兑",
   Enteranamount: "确认",
   Minumumreceived: "总计收到",
   succeed: "铸造成功",
   TransferSuccess: "划转成功",
   Mintfee: "铸造手续费",
+  totalReceiced:"总计收到",
+  MaximumMint:"最大铸币数量",
 
 
   //铸币和转账手续页面

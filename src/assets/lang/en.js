@@ -78,12 +78,14 @@ export default {
   MintDIBI: "Mint DIBI",
   Price: "Price",
   per: "per",
-  Enteranamount: "affirm",
+  Enteranamount: "Enter an amount",
   Minumumreceived: "Minumum  received",
   succeed: "succeed",
   Mintfee: "Mint fee",
   totalreceice: "total receice",
   reward:"Reward",
+  totalReceiced:"total receiced",
+  MaximumMint:"Maximum Mint",
 
   //Ma 我的页面
   Me: "Me",

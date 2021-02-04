@@ -76,7 +76,7 @@
       <div class="consume">
         <div class="box-flex">
           <div class="box-flex">
-            <div class="received">{{$t("Minumumreceived")}}</div>
+            <div class="received">{{$t("totalReceiced") }}</div>
             <img src="../assets/image/problem.png" />
           </div>
           <div class="number_DlBl">{{totalReceive?totalReceive:0.0}} DIBI</div>
@@ -87,15 +87,15 @@
             <div class="received">{{$t("Mintfee")}}</div>
             <img src="../assets/image/problem.png" />
           </div>
-          <div class="number_DlBl">{{this.DBLhowMany?this.DBLhowMany:0.0}} DBL</div>
+          <div class="number_DlBl">{{DBLhowMany?DBLhowMany:0.0}} DBL</div>
         </div>
 
         <div class="box-flex">
           <div class="box-flex">
-            <div class="received">{{$t("Mintfee")}}</div>
+            <div class="received">{{$t("MaximumMint")}}</div>
             <img src="../assets/image/problem.png" />
           </div>
-          <div class="number_DlBl">{{this.DBLhowMany?this.DBLhowMany:0.0}} DBL</div>
+          <div class="number_DlBl">{{balance}} DBL</div>
         </div>
       </div>
     </div>
