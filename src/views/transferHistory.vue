@@ -84,7 +84,6 @@ export default {
         data: { page: this.page, page_size: 10 }
       });
 
-      console.log(data);
       this.getData = false;
       if (status === 200) {
         if (data.length < 10) {

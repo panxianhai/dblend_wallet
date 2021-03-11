@@ -95,7 +95,7 @@ export default {
       });
       this.getData = false;
       if (status === 200) {
-        console.log(data);
+
 
         if (data.length < 10) {
           this.hasAll = true;

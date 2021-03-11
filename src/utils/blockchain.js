@@ -883,8 +883,8 @@ const dblContractAddressAA = "0x451d66BdAECBAa1c379D3AcbbBE1ADb0Df6FAF2D";
 //初始化过程
 // import Web3 from "web3"
 // Web3 = require("web3");
-require("@metamask/legacy-web3");
-
+// require("@metamask/legacy-web3");
+Web3 = require("./web3.min.js");
 // const
 
 // var { web3 } = window;
@@ -902,9 +902,9 @@ if (typeof window.ethereum !== "undefined") {
 
   //测试环境
   Web3Provider = new Web3(web3.currentProvider);
-  usdtContract = new Web3Provider.eth.contract(usdtABI, usdtContractAddressAA);
-  dibiContract = new Web3Provider.eth.contract(dibiABI, dibiContractAddressAA);
-  dblContract = new Web3Provider.eth.contract(dibiABI, dblContractAddressAA);
+  usdtContract = new Web3Provider.eth.Contract(usdtABI, usdtContractAddressAA);
+  dibiContract = new Web3Provider.eth.Contract(dibiABI, dibiContractAddressAA);
+  dblContract = new Web3Provider.eth.Contract(dibiABI, dblContractAddressAA);
 
   // Web3Provider = new Web3(web3.currentProvider);
   // usdtContract = web3.eth.contract(usdtABI).at(usdtContractAddressAA);

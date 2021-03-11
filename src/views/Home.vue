@@ -465,7 +465,6 @@ export default {
     };
   },
   created() {
-
     // console.log(usdtContract)
     // let dibiBalance =  usdtContract
     //       .getBalance(this.address)
@@ -517,7 +516,6 @@ export default {
 
               return;
             } else if (this.$store.state.address !== result[0]) {
-              console.log("898989");
               //这次登陆跟上次不一样，清空数据需要手动连接
               this.$store.commit("amendData", { key: "token", value: "" });
               this.$store.commit("amendData", { key: "address", value: "" });
@@ -589,8 +587,6 @@ export default {
 
     //用于查询eth
     async queryeth() {
-      {
-      }
       try {
         let ethBalance = await Web3Provider.eth.getBalance(this.address);
         let value = this.$fromWei(ethBalance, "ether");
@@ -621,18 +617,18 @@ export default {
       //     .balanceOf(this.address)
       //     .call();
       // console.log(dibiBalance)
-      // try {
-      //   let dibiBalance = await dblContract.methods
-      //     .balanceOf(this.address)
-      //     .call();
-      //   let value = this.$fromWei(dibiBalance, "Gwei");
-      //   value = this.$toFixedNumber({ num: value, lengths: 4 });
-      //   this.$set(this.walletBalance, "DBL", value ? value : 0);
-      // } catch (error) {
-      //   this.$set(this.walletBalance, "DBL", 0);
-      //   this.$toast(this.$t("home3"));
-      //   throw new Error(error);
-      // }
+      try {
+        let dibiBalance = await dblContract.methods
+          .balanceOf(this.address)
+          .call();
+        let value = this.$fromWei(dibiBalance, "Gwei");
+        value = this.$toFixedNumber({ num: value, lengths: 4 });
+        this.$set(this.walletBalance, "DBL", value ? value : 0);
+      } catch (error) {
+        this.$set(this.walletBalance, "DBL", 0);
+        this.$toast(this.$t("home3"));
+        throw new Error(error);
+      }
     },
 
     //转账usdt
@@ -651,7 +647,7 @@ export default {
     },
 
     //转账eth
-    ethA({ from: to, amount, txdata = "" }) {
+    async ethA({ from: to, amount, txdata = "" }) {
       let hashValue = "";
       try {
         var transactionData = {
@@ -662,10 +658,15 @@ export default {
           // gas:60000
         };
 
-        web3.eth.sendTransaction(transactionData, (err, res) => {
-          if (res) {
-            hashValue = res;
-          }
+        // web3.eth.sendTransaction(transactionData, (err, res) => {
+        //   if (res) {
+        //     hashValue = res;
+        //   }
+        // });
+
+        this.hashValue = await ethereum.request({
+          method: "eth_sendTransaction",
+          params: [transactionData]
         });
       } catch (error) {
         this.$toast(this.$t("home3"));
@@ -897,7 +898,10 @@ export default {
             return this.$toast(this.$t("home13"));
           }
 
-          if (Number(this.supplyInfo.quota) < this.supplyMoney) {
+          if (
+            Number(this.supplyInfo.quota) < this.supplyMoney &&
+            Number(this.supplyInfo.quota) !== -1
+          ) {
             return this.$toast(this.$t("home13"));
           }
 
@@ -905,7 +909,7 @@ export default {
             return this.$toast(this.$t("home15"));
           }
 
-          txdata = web3.toHex(
+          txdata = this.$stringToHex(
             type + ":" + daysType + ":" + coinClass + ":" + this.supplyMoney
           );
 
@@ -948,7 +952,7 @@ export default {
             return this.$toast(this.$t("home7"));
           }
 
-          txdata = web3.toHex(
+          txdata = this.$stringToHex(
             type +
               ":" +
               daysType +
@@ -983,41 +987,71 @@ export default {
           value: this.$toWei(0, "ether"),
           data: txdata,
           //测试
-          gas: 60000
+          gas: "60000"
         };
 
-        web3.eth.sendTransaction(transactionData, async (err, res) => {
-          if (res) {
-            if (type === "L") {
-              let resData = await supply_markets({
-                data: { market_id: id, amount: amount, txn_hash: res }
-              });
-              status = resData.status;
-              message = resData.data.message;
-            } else {
-              let resData = await borrow_markets({
-                data: { market_id: id, amount: amount, txn_hash: res }
-              });
-              status = resData.status;
-              message = resData.data.message;
-              this.balance(2);
-            }
-            if (status == 200) {
-              if (type == "L") {
-                this.supplyMoney = "";
-                this.supplyShow = false;
-              } else {
-                this.borrowMoneyNumber = "";
-                this.borrowDBLNumber = "";
-                this.borrowShow = false;
-              }
-              return this.$toast(this.$t("home8"));
-            }
-            // this.$toast(message);
-          } else {
-            this.$toast(this.$t("home9"));
-          }
+        let transactionHash = await ethereum.request({
+          method: "eth_sendTransaction",
+          params: [transactionData]
         });
+        if (type === "L") {
+          let resData = await supply_markets({
+            data: { market_id: id, amount: amount, txn_hash: transactionHash }
+          });
+          status = resData.status;
+          message = resData.data.message;
+        } else {
+          let resData = await borrow_markets({
+            data: { market_id: id, amount: amount, txn_hash: transactionHash }
+          });
+          status = resData.status;
+          message = resData.data.message;
+          this.balance(2);
+        }
+        if (status == 200) {
+          if (type == "L") {
+            this.supplyMoney = "";
+            this.supplyShow = false;
+          } else {
+            this.borrowMoneyNumber = "";
+            this.borrowDBLNumber = "";
+            this.borrowShow = false;
+          }
+          return this.$toast(this.$t("home8"));
+        }
+
+        // web3.eth.sendTransaction(transactionData, async (err, res) => {
+        //   if (res) {
+        //     if (type === "L") {
+        //       let resData = await supply_markets({
+        //         data: { market_id: id, amount: amount, txn_hash: res }
+        //       });
+        //       status = resData.status;
+        //       message = resData.data.message;
+        //     } else {
+        //       let resData = await borrow_markets({
+        //         data: { market_id: id, amount: amount, txn_hash: res }
+        //       });
+        //       status = resData.status;
+        //       message = resData.data.message;
+        //       this.balance(2);
+        //     }
+        //     if (status == 200) {
+        //       if (type == "L") {
+        //         this.supplyMoney = "";
+        //         this.supplyShow = false;
+        //       } else {
+        //         this.borrowMoneyNumber = "";
+        //         this.borrowDBLNumber = "";
+        //         this.borrowShow = false;
+        //       }
+        //       return this.$toast(this.$t("home8"));
+        //     }
+        //     // this.$toast(message);
+        //   } else {
+        //     this.$toast(this.$t("home9"));
+        //   }
+        // });
       } catch (error) {
         this.$toast(this.$t("home9"));
       }
@@ -1121,8 +1155,9 @@ export default {
             } else if (this.$store.state.address === accounts[0]) {
               //是否登陆了钱包
               this.address = accounts[0];
+         
               var balance = Web3Provider.getBalance(this.address);
-              console.log(balance); // instanceof BigNumber
+
               this.getNotification();
               this.balance();
               return;

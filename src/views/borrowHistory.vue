@@ -313,24 +313,24 @@ export default {
         ).toFixed(2) + "%";
     },
     //用户添加质押币
-    async onAdd() {
-      if (this.borrowDBLNumber > this.balance) {
-        return this.$toast(this.$t("borrowHistory1"));
-      }
-      if (!this.borrowDBLNumber) return;
-      this.$toast({ message: this.$t("home6"), overlay: true });
-      let { status } = await borrowAdd({ id });
-      if (status == 200) {
-        this.$toast.clear();
-        this.$toast(this.$t("home8"));
-      } else {
-        this.$toast.clear();
-        this.$toast(data.message);
-      }
-    },
+    // async onAdd() {
+    //   if (this.borrowDBLNumber > this.balance) {
+    //     return this.$toast(this.$t("borrowHistory1"));
+    //   }
+    //   if (!this.borrowDBLNumber) return;
+    //   this.$toast({ message: this.$t("home6"), overlay: true });
+    //   let { status } = await borrowAdd({ id });
+    //   if (status == 200) {
+    //     this.$toast.clear();
+    //     this.$toast(this.$t("home8"));
+    //   } else {
+    //     this.$toast.clear();
+    //     this.$toast(data.message);
+    //   }
+    // },
 
     //用户转钱吧数据传到以太坊的数据链上
-    onAdd({
+    async onAdd({
       from = this.$store.state.address,
       to = this.$store.state.informationTO,
       type = "P",
@@ -340,7 +340,7 @@ export default {
         let txdata = "";
         let amount = Number(this.borrowDBLNumber);
 
-        txdata = web3.toHex(type + ":" + coinClass + ":" + amount);
+        txdata = this.$stringToHex(type + ":" + coinClass + ":" + amount);
 
         if (amount > this.balance) return this.$toast(this.$t("home5"));
         if (amount <= 0) return this.$toast(this.$t("home12"));
@@ -350,26 +350,43 @@ export default {
           value: this.$toWei(0, "ether"),
           data: txdata,
           //测试
-          gas: 60000
+          gas: "60000"
         };
-        web3.eth.sendTransaction(transactionData, async (err, res) => {
-          if (res) {
-            let { status, data } = await borrowAdd({
-              id: this.showBorrowData.id,
-              data: { amount, txn_hash: res }
-            });
-            if (status == 200) {
-              this.borrowDBLNumber = "";
-              this.borrowMoneyNumber = "";
-              this.borrowShow = false;
-              return this.$toast(this.$t("home8"));
-            }
-            // this.$toast(data.message);
-          } else {
-            this.$toast(this.$t("home9"));
-          }
-          //获取用户哈希传递到后台
+
+        let res = await ethereum.request({
+          method: "eth_sendTransaction",
+          params: [transactionData]
         });
+
+        let { status, data } = await borrowAdd({
+          id: this.showBorrowData.id,
+          data: { amount, txn_hash: res }
+        });
+        if (status == 200) {
+          this.borrowDBLNumber = "";
+          this.borrowMoneyNumber = "";
+          this.borrowShow = false;
+          return this.$toast(this.$t("home8"));
+        }
+
+        // web3.eth.sendTransaction(transactionData, async (err, res) => {
+        //   if (res) {
+        //     let { status, data } = await borrowAdd({
+        //       id: this.showBorrowData.id,
+        //       data: { amount, txn_hash: res }
+        //     });
+        //     if (status == 200) {
+        //       this.borrowDBLNumber = "";
+        //       this.borrowMoneyNumber = "";
+        //       this.borrowShow = false;
+        //       return this.$toast(this.$t("home8"));
+        //     }
+        //     // this.$toast(data.message);
+        //   } else {
+        //     this.$toast(this.$t("home9"));
+        //   }
+        //   //获取用户哈希传递到后台
+        // });
       } catch (error) {
         this.$toast(this.$t("home9"));
       }

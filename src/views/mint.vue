@@ -321,7 +321,7 @@ export default {
           .transfer(this.$store.state.mintTO, this.$toWei(DBLhowMany, "Gwei"))
           //测试
           .send(
-            { from: this.$store.state.address, gas: 60000 },
+            { from: this.$store.state.address, gas: "60000" },
             (error, transactionHash) => {
               if (transactionHash) {
                 this.mint(DBLhowMany, transactionHash);

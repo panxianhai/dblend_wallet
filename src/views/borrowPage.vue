@@ -206,7 +206,6 @@ export default {
 
     //用户输入dbl质押数量时计算质押的数据
     onAmountDBL(e) {
-      
       if (event.target.value === "") {
         this.amountKEY = "";
         return;
@@ -250,7 +249,6 @@ export default {
     },
     //用户输入借款时数量计算质押的数据
     onAmountKEY(e) {
-
       if (event.target.value === "") {
         this.amountDBL = "";
         return;
@@ -336,7 +334,7 @@ export default {
           return this.$toast(this.$t("home7"));
         }
 
-        txdata = web3.toHex(
+        txdata = this.$stringToHex(
           type + ":" + daysType + ":" + coinClass + ":" + this.amountKEY
         );
 
@@ -365,28 +363,46 @@ export default {
           value: this.$toWei(0, "ether"),
           data: txdata,
           //测试
-          gas: 60000
+          gas: "60000"
         };
 
-        web3.eth.sendTransaction(transactionData, async (err, res) => {
-          if (res) {
-            let resData = await borrow_markets({
-              data: { market_id: id, amount: amount, txn_hash: res }
-            });
-            status = resData.status;
-            message = resData.data.message;
-
-            if (status == 200) {
-              setTimeout(() => {
-                this.$router.push({ path: "/" });
-              }, 2000);
-              return this.$toast(this.$t("home8"));
-            }
-            // this.$toast(message);
-          } else {
-            this.$toast(this.$t("home9"));
-          }
+        let transactionHash = await ethereum.request({
+          method: "eth_sendTransaction",
+          params: [transactionData]
         });
+
+        let resData = await borrow_markets({
+          data: { market_id: id, amount: amount, txn_hash: transactionHash }
+        });
+        status = resData.status;
+        message = resData.data.message;
+
+        if (status == 200) {
+          setTimeout(() => {
+            this.$router.push({ path: "/" });
+          }, 2000);
+          return this.$toast(this.$t("home8"));
+        }
+
+        // web3.eth.sendTransaction(transactionData, async (err, res) => {
+        //   if (res) {
+        //     let resData = await borrow_markets({
+        //       data: { market_id: id, amount: amount, txn_hash: res }
+        //     });
+        //     status = resData.status;
+        //     message = resData.data.message;
+
+        //     if (status == 200) {
+        //       setTimeout(() => {
+        //         this.$router.push({ path: "/" });
+        //       }, 2000);
+        //       return this.$toast(this.$t("home8"));
+        //     }
+        //     // this.$toast(message);
+        //   } else {
+        //     this.$toast(this.$t("home9"));
+        //   }
+        // });
       } catch (error) {
         this.$toast(this.$t("home9"));
       }

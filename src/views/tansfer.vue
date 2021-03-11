@@ -242,7 +242,7 @@ export default {
         usdtContract.methods
           .transfer(to, this.$toWei(num, "usdt"))
           //测试
-          .send({ from: from, gas: 60000 }, (error, transactionHash) => {
+          .send({ from: from, gas: "60000" }, (error, transactionHash) => {
             // .send({ from: from }, (error, transactionHash) => {
             if (transactionHash) {
               this.amount = "";
@@ -257,17 +257,49 @@ export default {
       }
     },
     //转账eth
-    ethA({ from, to, num }) {
+    async ethA({ from, to, num }) {
       try {
-        var transactionData = {
+        let transactionData = {
           from: from,
           to: to,
           value: this.$toWei(num, "ether"),
           //测试
-          gas: 60000
+          gas: "60000"
         };
 
-        web3.eth.sendTransaction(transactionData, (err, res) => {
+        // let transactionHash = await ethereum.request({
+        //   method: "eth_sendTransaction",
+        //   params: [transactionData]
+        // });
+
+        // var transactionData = { from: loginAccount, to: receiveAddress, value: toWei(0.001, 'ether') };
+        //   Web3Provider.eth.sendTransaction(transactionData, (err, res) => {
+        //     var output = "";
+        //     if (!err) {
+        //       output += res;
+        //     } else {
+        //       output = "Error";
+        //     }
+        //   });
+
+        //   let transactionData = {
+        //   from: from,
+        //   to: to,
+        //   value: this.$toWei(0, "ether"),
+        //   data: txdata,
+        //   //测试
+        //   gas: "60000"
+        // };
+
+        // let transactionHash = await ethereum.request({
+        //   method: "eth_sendTransaction",
+        //   params: [transactionData]
+        // });
+
+        // this.amount = "";
+        // this.getBalance();
+        // this.$toast(this.$t("TransferSuccess"));
+        Web3Provider.eth.sendTransaction(transactionData, (err, res) => {
           if (res) {
             this.amount = "";
             this.getBalance();
@@ -285,9 +317,9 @@ export default {
     dblA({ from, to, num, positiveSequence }) {
       try {
         dblContract.methods
-          .transfer(to, this.$toWei(num, "Gwei"))
+          .transfer(to, String(this.$toWei(num, "Gwei")))
           //测试
-          .send({ from: from, gas: 60000 }, (error, transactionHash) => {
+          .send({ from: from, gas: "60000" }, (error, transactionHash) => {
             // .send({ from: from }, (error, transactionHash) => {
             if (transactionHash) {
               this.amount = "";
@@ -307,7 +339,7 @@ export default {
         dibiContract.methods
           .transfer(to, this.$toWei(num, "Gwei"))
           //测试
-          .send({ from: from, gas: 60000 }, (error, transactionHash) => {
+          .send({ from: from, gas: "60000" }, (error, transactionHash) => {
             // .send({ from: from,  }, (error, transactionHash) => {
             if (transactionHash) {
               this.amount = "";
@@ -322,14 +354,14 @@ export default {
       }
     },
     //用户转钱吧数据传到以太坊的数据链上
-    transferMeney({ from, to, type = "W", coinClass = this.key }) {
+    async transferMeney({ from, to, type = "W", coinClass = this.key }) {
       //禁用功能
       // return this.$toast(this.$t("tansfer2"));
       try {
         let txdata = "";
         let amount = Number(this.amount);
 
-        txdata = web3.toHex(type + ":" + coinClass + ":" + amount);
+        txdata = this.$stringToHex(type + ":" + coinClass + ":" + amount);
 
         if (isNaN(amount)) {
           return this.$toast(this.$t("home10"));
@@ -346,23 +378,37 @@ export default {
           value: this.$toWei(0, "ether"),
           data: txdata,
           //测试
-          gas: 60000
+          gas: "60000"
         };
-        web3.eth.sendTransaction(transactionData, async (err, res) => {
-          if (res) {
-            let { status, data } = await withdraw({
-              data: { amount, asset: this.key, txn_hash: res }
-            });
-            if (status == 200) {
-              this.amount = "";
-              this.getBalance();
-              return this.$toast(this.$t("home8"));
-            }
-          } else {
-            this.$toast(this.$t("home9"));
-          }
-          //获取用户哈希传递到后台
+
+        let transactionHash = await ethereum.request({
+          method: "eth_sendTransaction",
+          params: [transactionData]
         });
+        let { status, data } = await withdraw({
+          data: { amount, asset: this.key, txn_hash: transactionHash }
+        });
+        if (status == 200) {
+          this.amount = "";
+          this.getBalance();
+          return this.$toast(this.$t("home8"));
+        }
+
+        // web3.eth.sendTransaction(transactionData, async (err, res) => {
+        //   if (res) {
+        //     let { status, data } = await withdraw({
+        //       data: { amount, asset: this.key, txn_hash: res }
+        //     });
+        //     if (status == 200) {
+        //       this.amount = "";
+        //       this.getBalance();
+        //       return this.$toast(this.$t("home8"));
+        //     }
+        //   } else {
+        //     this.$toast(this.$t("home9"));
+        //   }
+        //   //获取用户哈希传递到后台
+        // });
       } catch (error) {
         this.$toast(this.$t("home9"));
       }
