@@ -128,3 +128,14 @@ export function getInterest({ data = {}} = {}) {
 export function transferHistory({ data = {}} = {}) {
   return httpGet({ url: `/transfer/history`, data });
 }
+
+//存款前的资格检查
+export function supplyMarketsCheck({ data = {}} = {}) {
+  return httpPost({ url: `/supply_markets/check`, data });
+}
+
+
+//借币前的资格检查
+export function borrowMarketsCheck({ data = {}} = {}) {
+  return httpPost({ url: `/borrow_markets/check`, data });
+}

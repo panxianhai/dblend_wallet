@@ -129,6 +129,9 @@ export default {
 
     //获取用户的值变成2位数
     setAmountNumber(event) {
+      if (event.target.value === "") {
+        return;
+      }
       let lengths = 2;
       if (this.key === "USDT") {
         lengths = 2;
@@ -164,8 +167,8 @@ export default {
       }
 
       if (this.amount > this.balance) {
-        this.$toast(this.$t("home5"))
-        return
+        this.$toast(this.$t("home5"));
+        return;
       }
       // this.amount = this.$toFixedNumber({ num: this.amount });
 

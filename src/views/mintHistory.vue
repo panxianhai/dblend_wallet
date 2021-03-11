@@ -103,12 +103,26 @@ export default {
 
         if (Initialize) {
           this.supplyList = [];
-          return data.forEach(value => {
-            this.supplyList.push(value);
-          });
         }
 
         data.forEach(value => {
+          value.dbl_in = this.$toFixedNumber({
+            num: value.dbl_in,
+            lengths: 4
+          });
+          value.dibi_p10 = this.$toFixedNumber({
+            num: value.dibi_p10,
+            lengths: 4
+          });
+          value.fee = this.$toFixedNumber({
+            num: value.fee,
+            lengths: 4
+          });
+          value.dibi_amount = this.$toFixedNumber({
+            num: value.dibi_amount,
+            lengths: 0
+          });
+
           this.supplyList.push(value);
         });
       }

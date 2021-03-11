@@ -879,11 +879,15 @@ const dibiContractAddressAA = "0x82d1a1268F2A95d8EBEB4868c937DF2038887F5e";
 //测试dbl的钱包地址
 const dblContractAddressAA = "0x451d66BdAECBAa1c379D3AcbbBE1ADb0Df6FAF2D";
 
-
 //MetaMask会向网页注入一个全局的API变量window.ethereum
 //初始化过程
 // import Web3 from "web3"
-Web3 = require("web3");
+// Web3 = require("web3");
+require("@metamask/legacy-web3");
+
+// const
+
+// var { web3 } = window;
 
 //常量USDT的地址，加密的地址。用于创建和USDT服务服务器进行交互的地址
 
@@ -891,15 +895,20 @@ if (typeof window.ethereum !== "undefined") {
   // 如果已经设置了Provider，则返回当前的Provider。这个方法可以用来检查在使用mist浏览器等情况下已经设置过Provider，避免重复设置的情况。
 
   //创建一个ETH和USDT的全局对象，用于连接钱包和服务器
-    // Web3Provider = new Web3(web3.currentProvider);
-    // usdtContract = new Web3Provider.eth.Contract(usdtABI, usdtContractAddress);
-    // dibiContract = new Web3Provider.eth.Contract(dibiABI, dibiContractAddress);
-    // dblContract = new Web3Provider.eth.Contract(dibiABI, dblContractAddress);
-  
-  
-    //测试环境
+  // Web3Provider = new Web3(web3.currentProvider);
+  // usdtContract = new Web3Provider.eth.Contract(usdtABI, usdtContractAddress);
+  // dibiContract = new Web3Provider.eth.Contract(dibiABI, dibiContractAddress);
+  // dblContract = new Web3Provider.eth.Contract(dibiABI, dblContractAddress);
+
+  //测试环境
   Web3Provider = new Web3(web3.currentProvider);
-  usdtContract = new Web3Provider.eth.Contract(usdtABI, usdtContractAddressAA);
-  dibiContract = new Web3Provider.eth.Contract(dibiABI, dibiContractAddressAA);
-  dblContract = new Web3Provider.eth.Contract(dibiABI, dblContractAddressAA);
+  usdtContract = new Web3Provider.eth.contract(usdtABI, usdtContractAddressAA);
+  dibiContract = new Web3Provider.eth.contract(dibiABI, dibiContractAddressAA);
+  dblContract = new Web3Provider.eth.contract(dibiABI, dblContractAddressAA);
+
+  // Web3Provider = new Web3(web3.currentProvider);
+  // usdtContract = web3.eth.contract(usdtABI).at(usdtContractAddressAA);
+  // // console.log(usdtContract)
+  // dibiContract = web3.eth.contract(usdtABI).at(dibiContractAddressAA);
+  // dblContract = web3.eth.contract(dibiABI).at(dblContractAddressAA);
 }

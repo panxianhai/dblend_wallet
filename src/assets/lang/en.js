@@ -30,8 +30,8 @@ export default {
   Days: "Days",
   borrow: "Borrow",
   MobileWallet: "Mobile Wallet",
-  Provide:"Provide interest-Mit DIBI",
-  InterestPool:"Interest pool",
+  Provide: "Provide interest-Mit DIBI",
+  InterestPool: "Interest pool",
 
   //Borrow  的页面
   BorrowHistory: "Borrow History",
@@ -68,11 +68,11 @@ export default {
   Conflrm: "Tansfer",
 
   //铸币和转账手续页面
-  Fee:" Fee",
-  pending:" pending",
-  completed:" completed",
-  ToLendWallet:" To LendWallet",
-  ToPersonWallet:" To PersonWallet",
+  Fee: " Fee",
+  pending: " pending",
+  completed: " completed",
+  ToLendWallet: " To LendWallet",
+  ToPersonWallet: " To PersonWallet",
 
   //Mint的页面
   MintDIBI: "Mint DIBI",
@@ -83,9 +83,9 @@ export default {
   succeed: "succeed",
   Mintfee: "Mint fee",
   totalreceice: "total receice",
-  reward:"Reward",
-  totalReceiced:"total receiced",
-  MaximumMint:"Maximum Mint",
+  reward: "Reward",
+  totalReceiced: "total receiced",
+  MaximumMint: "Maximum Mint",
 
   //Ma 我的页面
   Me: "Me",
@@ -99,8 +99,8 @@ export default {
   MintHistory: "Mint History",
   TransferHistory: "Transfer History",
 
-    //选择币种的页面
-    selectToken:"selectToken",
+  //选择币种的页面
+  selectToken: "SelectToken",
 
   //登陆页面
   Password: "Password",
@@ -161,6 +161,7 @@ export default {
   login3: "The password contains letters and Numbers",
   login4: "Please connect your wallet first",
   login5: "Send a success",
+  login6: "Manufacturing failed",
   tansfer1: "The amount of transfer should not exceed the balance",
   tansfer2: "The transfer function is not enabled",
   ma1: "Network anomalies",

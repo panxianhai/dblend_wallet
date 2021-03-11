@@ -1,4 +1,4 @@
-template>
+<template>
   <div class="BorrowHistory">
     <div class="header box-flex">
       <div class="header-left box-flex">
@@ -20,13 +20,15 @@ template>
   </div>
 </template>
 
+
+
 <script>
 // import md5 from "md5"
-import headers from "../components/headers.vue";
+// import headers from "../components/headers.vue";
 import { reset } from "../api/requestApi";
 
 export default {
-  components: { headers },
+  // components: { headers },
   name: "resetPassword",
   data() {
     return {
@@ -43,6 +45,7 @@ export default {
     };
   },
   created() {
+    
     let address = sessionStorage.getItem("address") || "";
     if (address) {
       this.address = address;
@@ -96,7 +99,7 @@ export default {
         sessionStorage.removeItem("code");
 
         setTimeout(() => {
-          this.$router.push({ path: "/login", query: { login: true } });
+          this.$router.push({ path: "/login", query: { login: 1 } });
         }, 1500);
       }
     }

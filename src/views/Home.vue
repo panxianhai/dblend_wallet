@@ -111,12 +111,12 @@
               <img src="../assets/image/DIBI@2x.png" />
               <p>DIBI</p>
             </div>
-            <div class="bat2">{{ walletDIBI==1?walletBalance.DIBI:lendWallet.DIBI.balance}}</div>
+            <div class="bat2">{{ walletDIBI==1?lendWallet.DIBI.balance:walletBalance.DIBI}}</div>
             <!-- <div class="bat3" @click="$router.push({path:'/tansfer',query:{key:'DIBI'}})" v-if="walletDIBI==1">{{$t("Transfer")}}</div> -->
 
             <!-- 切换 -->
             <!-- <div class="bat3" v-if="walletDIBI==2" style="border:none;"></div> -->
-            <div class="bat3" @click="onMint">{{walletDIBI==1?$t("Transfer"):$t("Mint")}}</div>
+            <div class="bat3" @click="onMint">{{walletDIBI==1?$t("Mint"):$t("Transfer")}}</div>
             <!-- <div class="bat3" style="border:none;" v-else></div> -->
           </div>
         </div>
@@ -216,7 +216,11 @@
       </div>
       <div class="pool-box">{{poolNumber}} DBL</div>
       <div style="width:100%;padding:0px 10px;">
-        <div class="pool-hint" v-if="address">{{$t("Provide")}}</div>
+        <div
+          class="pool-hint"
+          v-if="address"
+          @click="$router.push({path:'/mint'})"
+        >{{$t("Provide")}}</div>
       </div>
     </div>
 
@@ -389,7 +393,9 @@ import {
   exchangePrice,
   check,
   mintPool,
-  notification
+  notification,
+  supplyMarketsCheck,
+  borrowMarketsCheck
 } from "../api/requestApi.js";
 
 export default {
@@ -459,9 +465,17 @@ export default {
     };
   },
   created() {
+
+    // console.log(usdtContract)
+    // let dibiBalance =  usdtContract
+    //       .getBalance(this.address)
+
+    // console.log(web3.eth.getBalance(this.address));
+
     //用来保存数据
     this.address = this.$store.state.address;
     this.hasLogin();
+
     this.balance();
     this.getSupplyList();
     this.getPool();
@@ -603,17 +617,22 @@ export default {
     },
     //用于查询dbl余额
     async querydbl() {
-      try {
-        let dibiBalance = await dblContract.methods
-          .balanceOf(this.address)
-          .call();
-        let value = this.$fromWei(dibiBalance, "Gwei");
-        value = this.$toFixedNumber({ num: value, lengths: 4 });
-        this.$set(this.walletBalance, "DBL", value ? value : 0);
-      } catch (error) {
-        this.$set(this.walletBalance, "DBL", 0);
-        this.$toast(this.$t("home3"));
-      }
+      //    let dibiBalance = await dblContract.methods
+      //     .balanceOf(this.address)
+      //     .call();
+      // console.log(dibiBalance)
+      // try {
+      //   let dibiBalance = await dblContract.methods
+      //     .balanceOf(this.address)
+      //     .call();
+      //   let value = this.$fromWei(dibiBalance, "Gwei");
+      //   value = this.$toFixedNumber({ num: value, lengths: 4 });
+      //   this.$set(this.walletBalance, "DBL", value ? value : 0);
+      // } catch (error) {
+      //   this.$set(this.walletBalance, "DBL", 0);
+      //   this.$toast(this.$t("home3"));
+      //   throw new Error(error);
+      // }
     },
 
     //转账usdt
@@ -698,42 +717,40 @@ export default {
         this.walletDIBI = wallet;
       }
 
-      if (wallet == 2) {
-        let { status, data } = await balance();
-        if (status === 200) {
-          this.$nextTick(() => {
-            for (let key in data) {
-              if (key === "USDT") {
-                data[key].balance = this.$toFixedNumber({
-                  num: data[key].balance
-                });
-              } else if (key === "DBL" || key === "ETH") {
-                data[key].balance = this.$toFixedNumber({
-                  num: data[key].balance,
-                  lengths: 4
-                });
-              } else if (key === "DIBI") {
-                data[key].balance = this.$toFixedNumber({
-                  num: data[key].balance,
-                  lengths: 0
-                });
-              } else {
-              }
+      this.queryusdt();
+      this.queryeth();
+      this.querydibi();
+      this.querydbl();
+
+      let { status, data } = await balance();
+      if (status === 200) {
+        this.$nextTick(() => {
+          for (let key in data) {
+            if (key === "USDT") {
+              data[key].balance = this.$toFixedNumber({
+                num: data[key].balance
+              });
+            } else if (key === "DBL" || key === "ETH") {
+              data[key].balance = this.$toFixedNumber({
+                num: data[key].balance,
+                lengths: 4
+              });
+            } else if (key === "DIBI") {
+              data[key].balance = this.$toFixedNumber({
+                num: data[key].balance,
+                lengths: 0
+              });
+            } else {
             }
-            this.lendWallet = data;
-          });
-        }
-      } else {
-        this.queryusdt();
-        this.queryeth();
-        this.querydibi();
-        this.querydbl();
+          }
+          this.lendWallet = data;
+        });
       }
     },
 
     //用户铸币或转账
     onMint() {
-      if (this.walletDIBI == 1) {
+      if (this.walletDIBI == 2) {
         this.$router.push({ path: "/Tansfer", query: { key: "DIBI" } });
         return;
       }
@@ -851,7 +868,7 @@ export default {
     },
 
     //用户转钱吧数据传到以太坊的数据链上
-    transferMeney({
+    async transferMeney({
       from = this.$store.state.address,
       to = this.$store.state.informationTO,
       id,
@@ -893,6 +910,23 @@ export default {
           );
 
           amount = Number(this.supplyMoney);
+
+          if (isNaN(amount)) {
+            return this.$toast(this.$t("home10"));
+          } else if (amount == 0) {
+            return this.$toast(this.$t("home11"));
+          } else if (amount < 0) {
+            return this.$toast(this.$t("home12"));
+          }
+          //存款前的检查
+          let { status } = await supplyMarketsCheck({
+            data: { market_id: id, amount }
+          });
+          if (status !== 200) {
+            return;
+          }
+
+          // borrowMarketsCheck,
         } else {
           // 禁止功能
           // return this.$toast(this.$t("home16"));
@@ -925,14 +959,22 @@ export default {
           );
 
           amount = this.borrowDBLNumber;
-        }
 
-        if (isNaN(amount)) {
-          return this.$toast(this.$t("home10"));
-        } else if (amount == 0) {
-          return this.$toast(this.$t("home11"));
-        } else if (amount < 0) {
-          return this.$toast(this.$t("home12"));
+          if (isNaN(amount)) {
+            return this.$toast(this.$t("home10"));
+          } else if (amount == 0) {
+            return this.$toast(this.$t("home11"));
+          } else if (amount < 0) {
+            return this.$toast(this.$t("home12"));
+          }
+
+          //借款前的检查
+          let { status } = await borrowMarketsCheck({
+            data: { market_id: id, amount, borrow_rate: 0.7 }
+          });
+          if (status !== 200) {
+            return;
+          }
         }
 
         var transactionData = {
@@ -1020,7 +1062,10 @@ export default {
     },
 
     //获取用户存款输入的数量
-    onSupplyMoney(onSupplyMoney) {
+    onSupplyMoney(event) {
+      if (event.target.value === "") {
+        return;
+      }
       this.supplyMoney = this.$toFixedNumber({
         num: event.target.value,
         lengths: 2,
@@ -1076,6 +1121,8 @@ export default {
             } else if (this.$store.state.address === accounts[0]) {
               //是否登陆了钱包
               this.address = accounts[0];
+              var balance = Web3Provider.getBalance(this.address);
+              console.log(balance); // instanceof BigNumber
               this.getNotification();
               this.balance();
               return;

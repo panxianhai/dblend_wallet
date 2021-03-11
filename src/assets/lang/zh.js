@@ -100,7 +100,7 @@ export default {
   Settings: "设置",
   Signout: "退出",
   MintHistory:"铸币历史",
-  TransferHistory:"转账历史",
+  TransferHistory:"划转历史",
 
 
   //选择币种的页面
@@ -109,7 +109,7 @@ export default {
   //登陆页面
   Password: "密码",
   Email: "邮箱地址",
-  Logln: "登陆",
+  Logln: "登录",
   CreateAccount: "创建账户",
   ForgotPassword: "忘记密码",
   Register: "注册",
@@ -125,7 +125,7 @@ export default {
   inputPassword:"请输入密码",
 
   //VerificationCode  验证码的页面
-  ResetPassword: "Reset Password",
+  ResetPassword: "重置密码",
   Accountverification: "帐户验证",
   ResetPrompt:
     "Please enter the 6-digit verification code that was sent to xxxxxxx@xx.com. The code is valid for 30 minutes.",
@@ -167,6 +167,7 @@ export default {
   login3: "密码最少要有数字和英文2种格式",
   login4: "请先连接钱包",
   login5: "获取验证码成功",
+  login6:"铸币失败",
   tansfer1: "转账金额不得超过余额",
   tansfer2: "划转功能暂未开启",
   ma1: "网络异常",

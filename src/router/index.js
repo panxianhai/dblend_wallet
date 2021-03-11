@@ -57,7 +57,7 @@ const routes = [
     path: "/Ma",
     name: "Ma",
     component: ma,
-    meta: { Title: "", SignIn: false },
+    meta: { Title: "", SignIn: true },
   },
   {
     path: "/login",
@@ -75,7 +75,7 @@ const routes = [
     path: "/languagePage",
     name: "languagePage",
     component: languagePage,
-    meta: { Title: "", SignIn: false },
+    meta: { Title: "", SignIn: true },
   },
   {
     path: "/resetPassword",
@@ -87,25 +87,25 @@ const routes = [
     path: "/transferHistory",
     name: "transferHistory",
     component: transferHistory,
-    meta: { Title: "", SignIn: false },
+    meta: { Title: "", SignIn: true },
   },
   {
     path: "/mintHistory",
     name: "mintHistory",
     component: mintHistory,
-    meta: { Title: "", SignIn: false },
+    meta: { Title: "", SignIn: true },
   },
   {
     path: "/selectToken",
     name: "selectToken",
     component: selectToken,
-    meta: { Title: "", SignIn: false },
+    meta: { Title: "", SignIn: true },
   },
   {
     path: "/borrowPage",
     name: "borrowPage",
     component: borrowPage,
-    meta: { Title: "", SignIn: false },
+    meta: { Title: "", SignIn: true },
   },
 ];
 

@@ -146,7 +146,7 @@ export default {
           sessionStorage.removeItem("code");
           this.$toast(this.$t("VerificationCode5"));
           setTimeout(() => {
-            this.$router.push({ path: "/login", query: { login: true } });
+            this.$router.push({ path: "/login", query: { login: 1 } });
           }, 1500);
         }
         this.request = true;

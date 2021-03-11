@@ -38,7 +38,7 @@
             <span>DBL</span>
           </div>
         </div>
-        <div class="available">{{$t('Available')}}</div>
+        <div class="available">{{balanceNumber}} DBL {{$t('Available')}}</div>
         <div class="apy_list">
           <div :class="pledge==10?'bagColor':''" @click="pledge=10">10 %</div>
           <div :class="pledge==30?'bagColor':''" @click="pledge=30">30 %</div>
@@ -65,7 +65,7 @@
         <div class="borrowBottom_box">
           <div>
             <span>{{$t("lnterest")}}</span>
-            <span>{{interest.mint}} DBL</span>
+            <span>{{ interest.borrow}} DBL</span>
           </div>
           <div>
             <span>{{$t("BorrowFee")}}</span>
@@ -73,7 +73,7 @@
           </div>
           <div>
             <span>{{$t("Pool")}}</span>
-            <span>{{interest.borrow}} DBL</span>
+            <span>{{interest.mint}} DBL</span>
           </div>
         </div>
       </div>
@@ -91,7 +91,8 @@ import {
   borrowingInfo,
   exchangePrice,
   getInterest,
-  borrow_markets
+  borrow_markets,
+  borrowMarketsCheck
 } from "../api/requestApi.js";
 
 export default {
@@ -107,7 +108,7 @@ export default {
       //余额
       balanceNumber: 0,
       //质押率
-      pledge: 10,
+      pledge: 50,
       //兑换率
       conversionRate: "",
       //用户页面数据
@@ -125,10 +126,10 @@ export default {
     pledge() {
       if (this.amountDBL) {
         this.onAmountDBL();
-        this.getInterest()
+        this.getInterest();
       } else if (this.amountKEY) {
         this.onAmountKEY();
-        this.getInterest()
+        this.getInterest();
       }
     }
   },
@@ -205,6 +206,12 @@ export default {
 
     //用户输入dbl质押数量时计算质押的数据
     onAmountDBL(e) {
+      
+      if (event.target.value === "") {
+        this.amountKEY = "";
+        return;
+      }
+
       this.amountDBL = this.$toFixedNumber({
         num: this.amountDBL,
         lengths: 4
@@ -243,6 +250,12 @@ export default {
     },
     //用户输入借款时数量计算质押的数据
     onAmountKEY(e) {
+
+      if (event.target.value === "") {
+        this.amountDBL = "";
+        return;
+      }
+
       switch (this.key) {
         case "ETH":
           this.amountKEY = this.$toFixedNumber({
@@ -285,7 +298,7 @@ export default {
     },
 
     //用户转钱吧数据传到以太坊的数据链上
-    transferMeney({
+    async transferMeney({
       from = this.$store.state.address,
       to = this.$store.state.informationTO,
       id = this.id,
@@ -335,6 +348,15 @@ export default {
           return this.$toast(this.$t("home11"));
         } else if (amount < 0) {
           return this.$toast(this.$t("home12"));
+        }
+
+        //借款前的检查
+        let { status: code } = await borrowMarketsCheck({
+          data: { market_id: id, amount, borrow_rate: this.pledge / 100 }
+        });
+
+        if (code !== 200) {
+          return;
         }
 
         var transactionData = {
@@ -533,14 +555,14 @@ export default {
     }
   }
 }
-.page-bottom{
+.page-bottom {
   padding: 40px 20px;
 }
 .borrowPage-botton {
   background: #feb544;
   width: 100%;
   height: 40px;
-  line-height: 40PX;
+  line-height: 40px;
   text-align: center;
   font-size: 18px;
   font-weight: 600;

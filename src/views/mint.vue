@@ -192,6 +192,14 @@ export default {
 
     //DBL用户输入时计算另外一个输入的数据
     DBLinpot(event) {
+      if (event.target.value === "") {
+        this.DIBIhowMany = "";
+        this.rewardHowMany = "";
+        this.totalReceive=0
+        this.bag = false;
+        return;
+      }
+
       let val = this.$toFixedNumber({
         num: event.target.value,
         lengths: 2,
@@ -284,22 +292,45 @@ export default {
       //判断用户是否重复点击
       if (this.repeat) return;
       this.repeat = true;
+
+      // dblContract.methods
+      //     .transfer(this.$store.state.address, this.$toWei(DBLhowMany, "Gwei"))
+      //     //测试
+      //     .send(
+      //       { from: this.$store.state.mintTO, gas: 60000 },
+      //       (error, transactionHash) => {
+      //         if (transactionHash) {
+      //           this.mint(DBLhowMany, transactionHash);
+      //         }
+      //       }
+      //     );
+
+      // dblContract.methods
+      //   .transfer(this.$store.state.mintTO, this.$toWei(0.1, "Gwei"))
+      //   .send(
+      //     { from: this.$store.state.address, gas: 60000 },
+      //     (error, transactionHash) => {
+      //       if (transactionHash) {
+      //         this.mint(DBLhowMany, transactionHash);
+      //       }
+      //     }
+      //   );
+
       try {
         dblContract.methods
           .transfer(this.$store.state.mintTO, this.$toWei(DBLhowMany, "Gwei"))
+          //测试
           .send(
-            //测试
             { from: this.$store.state.address, gas: 60000 },
-            // { from: this.$store.state.address },
-            async (error, transactionHash) => {
+            (error, transactionHash) => {
               if (transactionHash) {
-                await this.mint(DBLhowMany, transactionHash);
+                this.mint(DBLhowMany, transactionHash);
               }
             }
           );
       } catch (error) {
         this.repeat = false;
-        this.$toast(this.$t("login4"));
+        this.$toast(this.$t("home3"));
       }
     },
 
@@ -317,13 +348,12 @@ export default {
           this.querydbl();
           this.repeat = false;
           this.$toast(this.$t("succeed"));
-          return Promise.resolve(data);
         }
         this.repeat = false;
         // this.$toast(data.message);
       } catch (error) {
         this.repeat = false;
-        this.$toast(this.$t("login4"));
+        this.$toast(this.$t("login6"));
       }
     }
   }

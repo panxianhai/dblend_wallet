@@ -11,7 +11,10 @@
             <div
               class="box-flex Days"
             >{{item.amount+' '+item.coin_type}}{{item.status=='D'?$t("ToPersonWallet"):$t("ToLendWallet")}}</div>
-            <div class="grayText" style="white-space:nowrap;">{{item.status==1?$t('completed'):$t('pending')}}</div>
+            <div
+              class="grayText"
+              style="white-space:nowrap;"
+            >{{item.status==1?$t('completed'):$t('pending')}}</div>
           </div>
         </div>
 
@@ -90,11 +93,23 @@ export default {
 
         if (Initialize) {
           this.supplyList = [];
-          return data.forEach(value => {
-            this.supplyList.push(value);
-          });
         }
+
         data.forEach(value => {
+          if (value.coin_type == "USDT") {
+            value.amount = this.$toFixedNumber({ num: value.amount });
+          } else if (value.coin_type == "ETH" || value.coin_type == "DBL") {
+            value.amount = this.$toFixedNumber({
+              num: value.amount,
+              lengths: 4
+            });
+          } else if (value.coin_type == "DIBI") {
+            value.amount = this.$toFixedNumber({
+              num: value.amount,
+              lengths: 0
+            });
+          }
+
           this.supplyList.push(value);
         });
       }
