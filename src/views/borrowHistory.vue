@@ -27,7 +27,7 @@
             <!-- :class="item.status==2?'overdue':''" -->
             <p class="Days">USDT-{{item.apy_days}}{{$t("Days")}}</p>
             <div>
-              <span class="grayText">Reward：</span>
+              <span class="grayText">{{$t("Reward")}}：</span>
               <span class="blackText">{{item.reward_total}}DBL</span>
             </div>
           </div>
@@ -61,7 +61,7 @@
             <span class="grayText">{{$t("Time")}}：</span>
             <span
               class="blackText"
-            >{{item.status==0?'PENDING':`${item.begin_date} 00:00~${item.end_date} 00:00`}}</span>
+            >{{item.status==0?$t('PENDING'):`${item.begin_date} 00:00~${item.end_date} 00:00`}}</span>
           </div>
         </div>
       </div>

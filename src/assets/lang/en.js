@@ -54,7 +54,7 @@ export default {
   //SupplyHistory 的页面
   SupplyAmount: "Supply Amount",
   SupplyHistory: "Supply History",
-
+  PENDING:"PENDING",
   //Tansfer转账页面
   Tansfer: "Tansfer",
   From: "From",
@@ -127,7 +127,7 @@ export default {
     "Please enter the 6-digit verification code that was sent to xxxxxxx@xx.com. The code is valid for 30 minutes.",
   registeredPrompt:
     "lease enter the 6-digit verification code that was sent to xxxxxxx@xx.com. The code is valid for 30 minutes.",
-  Newemailverificationcode: "New email verification code",
+  Newemailverificationcode: "email verification code",
   ResendEmail: "Resend Email",
 
   //language 语言界面

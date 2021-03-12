@@ -74,6 +74,7 @@ Vue.prototype.$toFixedNumber = ({ num, lengths = 2, transition = true }) => {
 
   num = String(new bigDecimal(num).value);
 
+
   let len = num.indexOf(".");
   if (len !== -1) {
     num = num.slice(0, len + lengths);

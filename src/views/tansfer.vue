@@ -456,6 +456,11 @@ export default {
                 lengths: 4
               });
               break;
+            case "DIBI":
+              this.balance = this.$toFixedNumber({
+                num: data.DIBI.balance,
+                lengths: 0
+              });
           }
         } else {
           this.balance = 0;

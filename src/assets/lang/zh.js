@@ -55,6 +55,7 @@ export default {
   SupplyAmount: "存币数量",
   SupplyHistory: "存币历史",
   BorrowHistory: "借币历史",
+  PENDING:"未匹配",
 
   //Tansfer转账页面
   Tansfer: "划转",
@@ -131,7 +132,7 @@ export default {
     "Please enter the 6-digit verification code that was sent to xxxxxxx@xx.com. The code is valid for 30 minutes.",
   registeredPrompt:
     "lease enter the 6-digit verification code that was sent to xxxxxxx@xx.com. The code is valid for 30 minutes.",
-  Newemailverificationcode: "新邮箱验证码",
+  Newemailverificationcode: "邮箱验证码",
   ResendEmail: "重新获取验证码",
 
   //获取验证码页面

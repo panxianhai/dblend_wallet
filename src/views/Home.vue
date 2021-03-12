@@ -111,7 +111,7 @@
               <img src="../assets/image/DIBI@2x.png" />
               <p>DIBI</p>
             </div>
-            <div class="bat2">{{ walletDIBI==1?lendWallet.DIBI.balance:walletBalance.DIBI}}</div>
+            <div class="bat2">{{ walletDIBI==1?walletBalance.DIBI:lendWallet.DIBI.balance}}</div>
             <!-- <div class="bat3" @click="$router.push({path:'/tansfer',query:{key:'DIBI'}})" v-if="walletDIBI==1">{{$t("Transfer")}}</div> -->
 
             <!-- 切换 -->

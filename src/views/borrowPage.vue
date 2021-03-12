@@ -10,7 +10,7 @@
         <div class="coinInfo box-flex">
           <div class="box-flex">
             <div>{{$t('ProtocolBalance')}}:</div>
-            <div>{{borrowInfo.quota+borrowInfo.asset}}</div>
+            <div>{{borrowInfo.quota+" "+borrowInfo.asset}}</div>
           </div>
           <div class="box-flex">
             <span>{{$t('BorrowAPY')}}:</span>
@@ -210,6 +210,9 @@ export default {
         this.amountKEY = "";
         return;
       }
+      if (!Number(e.target.value)) {
+        return;
+      }
 
       this.amountDBL = this.$toFixedNumber({
         num: this.amountDBL,
@@ -251,6 +254,10 @@ export default {
     onAmountKEY(e) {
       if (event.target.value === "") {
         this.amountDBL = "";
+        return;
+      }
+
+      if (!Number(e.target.value)) {
         return;
       }
 
@@ -372,7 +379,12 @@ export default {
         });
 
         let resData = await borrow_markets({
-          data: { market_id: id, amount: amount, txn_hash: transactionHash }
+          data: {
+            market_id: id,
+            amount: amount,
+            txn_hash: transactionHash,
+            borrow_rate: this.pledge / 100
+          }
         });
         status = resData.status;
         message = resData.data.message;
@@ -391,7 +403,6 @@ export default {
         //     });
         //     status = resData.status;
         //     message = resData.data.message;
-
         //     if (status == 200) {
         //       setTimeout(() => {
         //         this.$router.push({ path: "/" });

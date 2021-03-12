@@ -9,7 +9,7 @@
             <div class="balance_number">{{$t("balance")+':'+balance}}</div>
           </div>
           <div class="making_money">
-            <div style="flex:1;">
+        
               <input
                 type="number"
                 placeholder="0.0"
@@ -17,7 +17,7 @@
                 @input="DBLinpot($event)"
                 v-model="DBLhowMany"
               />
-            </div>
+     
             <div class="MAX" @click="onMAX">{{$t("MAX")}}</div>
             <div class="coins">DBL</div>
           </div>
@@ -36,7 +36,8 @@
             <div class="balance_number"></div>
           </div>
           <div class="making_money">
-            <div style="flex:1;">
+           
+           
               <input
                 type="number"
                 placeholder="0.0"
@@ -45,7 +46,7 @@
                 readonly="readonly"
                 v-model="DIBIhowMany"
               />
-            </div>
+         
 
             <div class="coins">DlBl</div>
           </div>
@@ -59,7 +60,7 @@
             <div class="balance_number"></div>
           </div>
           <div class="making_money">
-            <div style="flex:1;">
+            
               <input
                 type="number"
                 placeholder="0.0"
@@ -67,7 +68,7 @@
                 readonly="readonly"
                 v-model="rewardHowMany"
               />
-            </div>
+           
             <div class="coins">DlBl</div>
           </div>
         </div>
@@ -195,7 +196,7 @@ export default {
       if (event.target.value === "") {
         this.DIBIhowMany = "";
         this.rewardHowMany = "";
-        this.totalReceive=0
+        this.totalReceive = 0;
         this.bag = false;
         return;
       }
@@ -374,6 +375,7 @@ export default {
   width: 100%;
   padding: 20px 15px;
 }
+
 .mint {
   width: 100%;
   background: #ffffff;
@@ -453,6 +455,11 @@ export default {
     font-weight: 400;
     color: #262626;
   }
+  // .making_money{
+  //   display: flex;
+    
+  // }
+
   .made_number {
     font-size: 18px;
     font-weight: 800;
