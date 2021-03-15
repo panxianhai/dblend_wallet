@@ -6,11 +6,11 @@
       </div>
     </div>
     <div class="login">
-      <div class="prompt">{{$t("PASSWORD")}}</div>
+      <div class="prompt">{{$t("newPassword")}}</div>
       <div>
         <input type="password" :placeholder="$t('inputPassword')" v-model="password" />
       </div>
-      <div class="prompt">{{$t("PASSWORD")}}</div>
+      <div class="prompt">{{$t("Confirmpassword")}}</div>
       <div>
         <input type="password" :placeholder="$t('ConfirmPassword')" v-model="Confirmpassword" />
       </div>

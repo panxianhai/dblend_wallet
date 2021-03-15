@@ -134,6 +134,7 @@ export default {
   languageEN: "English",
   languageZH: "简体中文",
   //重置密码页面
+  newPassword:"newPassword",
   Reset: "Reset",
   Confirmpassword: "Confirm password",
   Confirm: "Confirm",
