@@ -206,11 +206,12 @@ export default {
 
     //用户输入dbl质押数量时计算质押的数据
     onAmountDBL(e) {
-      if (event.target.value === "") {
+      // console.log(this.amountDBL)
+      if (this.amountDBL === "") {
         this.amountKEY = "";
         return;
       }
-      if (!Number(e.target.value)) {
+      if (!Number(this.amountDBL)) {
         return;
       }
 
@@ -252,12 +253,12 @@ export default {
     },
     //用户输入借款时数量计算质押的数据
     onAmountKEY(e) {
-      if (event.target.value === "") {
+      if (this.amountKEY === "") {
         this.amountDBL = "";
         return;
       }
 
-      if (!Number(e.target.value)) {
+      if (!Number(this.amountKEY)) {
         return;
       }
 
