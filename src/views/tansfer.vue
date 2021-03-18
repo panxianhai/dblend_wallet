@@ -1,6 +1,6 @@
 <template>
   <div class="BorrowHistory">
-    <headers title="Tansfer" align="center" />
+    <headers title="Tansfer" align="center" pathUrl="/" />
     <div class="content">
       <div class="account box-flex">
         <div class="account-header box-flex">

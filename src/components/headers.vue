@@ -1,7 +1,11 @@
 <template>
   <div class="header box-flex" :style="{backgroundColor:bag}">
     <div class="header-left box-flex">
-      <img src="../assets/image/whiteIcon.png" class="header-icon" @click="$router.go(-1)" />
+      <img
+        src="../assets/image/whiteIcon.png"
+        class="header-icon"
+        @click="pathUrl?$router.push({path:pathUrl}):$router.go(-1)"
+      />
       <p :class="{paddingPX:align=='center'}">{{$t(title)}}</p>
     </div>
     <language color="rgba(255, 255, 255, 0.85)" :bag="bag" v-if="hidden" />
@@ -28,6 +32,10 @@ export default {
     align: {
       type: String,
       default: "center"
+    },
+    pathUrl: {
+      type: String,
+      default: ""
     }
   },
   data() {
@@ -49,7 +57,6 @@ export default {
   justify-content: space-between;
   padding: 0px 12px;
   color: #ffffff;
-
 }
 .header-icon {
   width: 22px;

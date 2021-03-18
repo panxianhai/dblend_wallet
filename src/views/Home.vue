@@ -20,7 +20,7 @@
         <div class="wallet-top" v-if="address">
           <div
             class="wallet-top-headline wallet_top_box"
-            @click="balance(1)"
+            @click="clickSync(1)"
             :class="walletDIBI==1?'top-color':''"
           >
             <div>{{$t('wallet')}}</div>
@@ -29,7 +29,7 @@
           <div
             class="wallet-user-name wallet_top_box"
             :class="walletDIBI==2?'top-color':''"
-            @click="balance(2)"
+            @click="clickSync(2)"
           >
             <div>{{$t("lendwallet")}}</div>
           </div>
@@ -128,18 +128,14 @@
         <div
           class="home-bottom-title"
           :class="[{'bat-color':bat_color , 'left_border':bat_color}]"
-          @click="getSupplyList({query:90})"
+          @click="clickSync(1)"
         >
           <div>{{$t("SupplyMarkets")}}</div>
 
           <!-- <span v-show="bat_color"></span> -->
         </div>
 
-        <div
-          class="home-bottom-title"
-          :class="[{'bat-color':!bat_color}]"
-          @click="getBorrowList({query:90})"
-        >
+        <div class="home-bottom-title" :class="[{'bat-color':!bat_color}]" @click="clickSync(2)">
           <div>{{$t("BorrowMarkets")}}</div>
 
           <!-- <span v-show="!bat_color"></span> -->
@@ -473,9 +469,10 @@ export default {
 
     //用来保存数据
     this.address = this.$store.state.address;
+
     this.hasLogin();
 
-    this.balance();
+    // this.balance();
     this.getSupplyList();
     this.getPool();
   },
@@ -550,7 +547,7 @@ export default {
     async isLogin(address) {
       try {
         let { status, data } = await check({ data: { address } });
-        console.log(data, "000");
+
         if (status === 200) {
           sessionStorage.setItem("address", address);
           if (data.has_bind == 1) {
@@ -711,6 +708,22 @@ export default {
       }
     },
 
+    //用户用于点击同步页面展示对应的数据
+    clickSync(val = 1) {
+      if (val == 1) {
+        if (this.address) {
+          this.balance(1);
+        }
+
+        this.getSupplyList({ query: 90 });
+      } else {
+        if (this.address) {
+          this.balance(2);
+        }
+        this.getBorrowList({ query: 90 });
+      }
+    },
+
     //获取用户余额
     async balance(wallet = 1, val = true) {
       // console.log(this.$store.getters.getData("token"))
@@ -807,6 +820,7 @@ export default {
       this.$toast.loading({ message: this.$t("home6"), overlay: true });
       this.daysColor = daysColor;
       this.bat_color = true;
+
       let { status, data } = await supplyList({ data: { query } });
 
       this.$toast.clear();
@@ -1155,7 +1169,7 @@ export default {
             } else if (this.$store.state.address === accounts[0]) {
               //是否登陆了钱包
               this.address = accounts[0];
-         
+
               var balance = Web3Provider.getBalance(this.address);
 
               this.getNotification();
@@ -1309,7 +1323,7 @@ export default {
       border-radius: 8px;
       text-align: center;
       line-height: 40px;
-      font-size: 16px;
+      font-size: 14px;
       font-weight: bold;
       color: rgba(0, 0, 0, 0.5);
     }
@@ -1402,7 +1416,7 @@ export default {
         height: 40px;
         line-height: 40px;
         font-size: 14px;
-        font-weight: 500;
+        font-weight: 600;
         color: rgba(0, 0, 0, 0.85);
       }
 
@@ -1412,7 +1426,7 @@ export default {
         height: 40px;
         flex: 2;
         font-size: 14px;
-        font-weight: 500;
+        font-weight: 600;
         color: rgba(0, 0, 0, 0.85);
       }
       .wallet-box-headline3 {
@@ -1421,7 +1435,7 @@ export default {
         line-height: 40px;
         height: 40px;
         font-size: 14px;
-        font-weight: 500;
+        font-weight: 600;
         color: rgba(0, 0, 0, 0.85);
       }
       .bat1 {

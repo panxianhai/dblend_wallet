@@ -7,7 +7,7 @@
         <img src="../assets/image/warnIcon.png" class="warnIcon" />
         <div
           class="warnText"
-        >{{$store.state.lang=="zh"?'您的'+notificationNumber.count+'个借贷合约将要被清算！请尽快添加DBL提高质押率!':notificationNumber.count+'\\Contracts is about to be liquidated! Please add DBL ASAP!'}}1</div>
+        >{{$store.state.lang=="zh"?'您的'+notificationNumber.count+'个借贷合约将要被清算！请尽快添加DBL提高质押率!':notificationNumber.count+'\\Contracts is about to be liquidated! Please add DBL ASAP!'}}</div>
         <img src="../assets/image/closeIcon.png" class="closeIcon" />
       </div>
       <div class="warn2" v-if="notificationNumber.count">
@@ -450,11 +450,11 @@ export default {
   height: 25px;
 }
 .warn1 {
-  margin: 20px 20px 0px 20px;
+  margin: 20px 20px 14px 20px;
 }
-// .warn2 {
-//   margin: 14px 20px 14px 20px;
-// }
+.warn2 {
+  margin: 0px 20px 14px 20px;
+}
 .box-flex {
   display: flex;
   align-items: center;

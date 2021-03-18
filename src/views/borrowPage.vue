@@ -293,6 +293,8 @@ export default {
         (this.amountKEY / this.pledge / this.conversionRate) * 100
       );
 
+      console.log(this.amountKEY ,this.pledge , this.conversionRate)
+
       this.amountDBL = this.$toFixedNumber({
         num: amountDBL,
         lengths: 4
