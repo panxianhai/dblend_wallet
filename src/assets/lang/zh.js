@@ -32,7 +32,8 @@ export default {
   MobileWallet: "Mobile Wallet",
   Provide:"提供利息 - 铸造DIBI",
   InterestPool:"利息池",
-
+  hintText:" 提示：多笔小金额存款比单笔大额存款匹配更快。",
+ 
   //Borrow  的页面
   BorrowHistory: "借币历史",
   Collateralrate: "当前质押率",
@@ -158,8 +159,8 @@ export default {
   home8: "操作成功",
   home9: "操作失败",
   home10: "请输入正确的数据格式",
-  home11: "数值不能为空或者零",
-  home12: "值不能小于0",
+  home11: "输入的数量不能为空或者零",
+  home12: "输入的数量不能小于0",
   home13: "协议余额不足",
   home14: "请先连接钱包登陆",
   login1: "密码不能低于8位数",

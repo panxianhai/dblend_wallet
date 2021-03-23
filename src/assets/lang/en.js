@@ -32,6 +32,7 @@ export default {
   MobileWallet: "Mobile Wallet",
   Provide: "Provide interest-Mit DIBI",
   InterestPool: "Interest pool",
+  hintText:"Tips: Multiple small deposits are matched faster than a single large deposit.",
 
   //Borrow  的页面
   BorrowHistory: "Borrow History",
@@ -151,8 +152,8 @@ export default {
   home8: "Operation is successful",
   home9: "The operation failure",
   home10: "Please enter the correct data format",
-  home11: "The value cannot be null or zero",
-  home12: "The value cannot be less than 0",
+  home11: "The input quantity cannot be null or zero",
+  home12: "The number of inputs cannot be less than 0",
   home13: "Insufficient agreement balance",
   home14: "Please login by connecting your wallet first",
   home15: "Lack of balance",

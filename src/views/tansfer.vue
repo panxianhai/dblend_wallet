@@ -57,7 +57,7 @@
 
 <script>
 import headers from "../components/headers.vue";
-import { withdraw, balance } from "../api/requestApi";
+import { withdraw, balance, setDeposit } from "../api/requestApi";
 
 export default {
   components: { headers },
@@ -67,7 +67,7 @@ export default {
       above: "",
       below: "Lend Wallet",
       //为true是用户地址在上面，公司账号在下面
-      positiveSequence: true,
+      positiveSequence: false,
       key: "",
       //用户需要转账的数量
       amount: "",
@@ -83,11 +83,21 @@ export default {
     };
   },
   created() {
-    this.above =
-      this.$store.state.address.substr(0, 4) +
-      "……" +
-      this.$store.state.address.substr(-4);
+    if (this.$route.query.to == 1) {
+      this.below = "Lend Wallet";
+      this.above =
+        this.$store.state.address.substr(0, 4) +
+        "……" +
+        this.$store.state.address.substr(-4);
+    } else {
+      this.below =
+        this.$store.state.address.substr(0, 4) +
+        "……" +
+        this.$store.state.address.substr(-4);
+      this.above = "Lend Wallet";
+    }
     this.key = this.$route.query.key;
+
     this.getBalance();
   },
   methods: {
@@ -245,6 +255,11 @@ export default {
           .send({ from: from, gas: "60000" }, (error, transactionHash) => {
             // .send({ from: from }, (error, transactionHash) => {
             if (transactionHash) {
+              this.setPayRecord({
+                amount: num,
+                txn_hash: transactionHash,
+                coin_type: "USDT"
+              });
               this.amount = "";
               this.getBalance();
               this.$toast(this.$t("TransferSuccess"));
@@ -301,6 +316,7 @@ export default {
         // this.$toast(this.$t("TransferSuccess"));
         Web3Provider.eth.sendTransaction(transactionData, (err, res) => {
           if (res) {
+            this.setPayRecord({ amount: num, txn_hash: res, coin_type: "ETH" });
             this.amount = "";
             this.getBalance();
             this.$toast(this.$t("TransferSuccess"));
@@ -322,6 +338,11 @@ export default {
           .send({ from: from, gas: "60000" }, (error, transactionHash) => {
             // .send({ from: from }, (error, transactionHash) => {
             if (transactionHash) {
+              this.setPayRecord({
+                amount: num,
+                txn_hash: transactionHash,
+                coin_type: "DBL"
+              });
               this.amount = "";
               this.getBalance();
               this.$toast(this.$t("TransferSuccess"));
@@ -342,6 +363,11 @@ export default {
           .send({ from: from, gas: "60000" }, (error, transactionHash) => {
             // .send({ from: from,  }, (error, transactionHash) => {
             if (transactionHash) {
+              this.setPayRecord({
+                amount: num,
+                txn_hash: transactionHash,
+                coin_type: "DIBI"
+              });
               this.amount = "";
               this.getBalance();
               this.$toast(this.$t("TransferSuccess"));
@@ -353,6 +379,12 @@ export default {
         this.$toast(this.$t("home9"));
       }
     },
+
+    //通知用于接收到充值通知
+    setPayRecord({ amount, txn_hash, coin_type }) {
+      setDeposit({ data: { amount, txn_hash, coin_type } });
+    },
+
     //用户转钱吧数据传到以太坊的数据链上
     async transferMeney({ from, to, type = "W", coinClass = this.key }) {
       //禁用功能

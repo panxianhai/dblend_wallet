@@ -139,3 +139,8 @@ export function supplyMarketsCheck({ data = {}} = {}) {
 export function borrowMarketsCheck({ data = {}} = {}) {
   return httpPost({ url: `/borrow_markets/check`, data });
 }
+
+//用户转账进入到公司账号通知
+export function setDeposit({ data = {}} = {}) {
+  return httpPost({ url: `/deposit`, data });
+}

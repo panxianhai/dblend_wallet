@@ -10,8 +10,6 @@ let request = axios.create({
   //测试地址
   // baseURL: "https://dblend-api.coderoad.org/api"
 });
-  
-
 
 // 添加请求拦截器
 request.interceptors.request.use(
@@ -42,6 +40,11 @@ request.interceptors.response.use(
   },
   function(error) {
     let err = { ...error };
+    if (err.config.url === "/deposit") {
+      // 对响应错误做点什么
+      return err.response;
+    }
+    
     if (err.response.status == 400) {
       if (err.response.data.message) {
         Toast(err.response.data.message);

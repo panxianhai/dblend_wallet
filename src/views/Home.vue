@@ -20,7 +20,7 @@
         <div class="wallet-top" v-if="address">
           <div
             class="wallet-top-headline wallet_top_box"
-            @click="clickSync(1)"
+            @click="balance(1)"
             :class="walletDIBI==1?'top-color':''"
           >
             <div>{{$t('wallet')}}</div>
@@ -29,7 +29,7 @@
           <div
             class="wallet-user-name wallet_top_box"
             :class="walletDIBI==2?'top-color':''"
-            @click="clickSync(2)"
+            @click="balance(2)"
           >
             <div>{{$t("lendwallet")}}</div>
           </div>
@@ -128,14 +128,18 @@
         <div
           class="home-bottom-title"
           :class="[{'bat-color':bat_color , 'left_border':bat_color}]"
-          @click="clickSync(1)"
+          @click="getSupplyList({ query: 90 })"
         >
           <div>{{$t("SupplyMarkets")}}</div>
 
           <!-- <span v-show="bat_color"></span> -->
         </div>
 
-        <div class="home-bottom-title" :class="[{'bat-color':!bat_color}]" @click="clickSync(2)">
+        <div
+          class="home-bottom-title"
+          :class="[{'bat-color':!bat_color}]"
+          @click="getBorrowList({ query: 90 })"
+        >
           <div>{{$t("BorrowMarkets")}}</div>
 
           <!-- <span v-show="!bat_color"></span> -->
@@ -267,7 +271,7 @@
         </div>
       </div>
     </van-popup>
-    <!-- suuppls 弹框-->
+    <!-- suuppls 弹框 -->
     <van-popup v-model="supplyShow">
       <div class="suupplsUp">
         <img src="../assets/image/close.png" @click="onSupplyShow" class="suupplsUp-icon" />
@@ -309,6 +313,7 @@
             class="borrow"
             @click="transferMeney({id :supplyInfo.id,type:'L' ,coinClass :supplyInfo.asset,daysType:supplyInfo.apy_days })"
           >{{$t("Supply")}}</div>
+          <div class="hint-text">{{$t("hintText")}}</div>
         </div>
       </div>
     </van-popup>
@@ -708,22 +713,6 @@ export default {
       }
     },
 
-    //用户用于点击同步页面展示对应的数据
-    clickSync(val = 1) {
-      if (val == 1) {
-        if (this.address) {
-          this.balance(1);
-        }
-
-        this.getSupplyList({ query: 90 });
-      } else {
-        if (this.address) {
-          this.balance(2);
-        }
-        this.getBorrowList({ query: 90 });
-      }
-    },
-
     //获取用户余额
     async balance(wallet = 1, val = true) {
       // console.log(this.$store.getters.getData("token"))
@@ -765,7 +754,7 @@ export default {
     //用户铸币或转账
     onMint() {
       if (this.walletDIBI == 2) {
-        this.$router.push({ path: "/Tansfer", query: { key: "DIBI" } });
+        this.$router.push({ path: "/Tansfer", query: { key: "DIBI", to: 2 } });
         return;
       }
       this.$router.push({
@@ -781,12 +770,13 @@ export default {
       key = "",
       type = "",
       days = "",
-      isDBL = false
+      isDBL = false,
+      to = 1
     } = {}) {
       //第一个操作用于跳转页面转账
       if (walletDIBI == 1) {
         key = isDBL ? "DBL" : key;
-        this.$router.push({ path: "/Tansfer", query: { key: key } });
+        this.$router.push({ path: "/Tansfer", query: { key, to } });
       } else {
         if (type == "borrow") {
           return this.$router.push({
@@ -1527,7 +1517,7 @@ export default {
     color: #fbfcfd;
     width: 100%;
     height: 40px;
-    background: #edf1f2;
+
     border-radius: 8px;
     text-align: center;
   }
@@ -1538,6 +1528,7 @@ export default {
   }
   .home-bottom-title {
     // position: relative;
+    background: #edf1f2;
     line-height: 40px;
     height: 40px;
     border-radius: 8px;
@@ -1747,6 +1738,12 @@ export default {
   font-size: 16px;
   font-weight: 400;
   color: #262626;
+}
+.hint-text {
+  padding-top:20px ;
+  font-size: 16px;
+  font-weight: 400;
+  color: rgba(38, 38, 38, 0.5);
 }
 .conversion {
   height: 50px;
