@@ -30,7 +30,10 @@
         </div>
       </div>
 
-      <!-- <div>暂无数据</div> -->
+      <div class="promptss" v-if="supplyList.length==0">
+        <img src="../assets/image/prompt.png">
+        <div>{{$t("prompt")}}</div>
+      </div>
     </div>
   </div>
 </template>

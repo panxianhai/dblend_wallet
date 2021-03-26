@@ -9,15 +9,15 @@
             <div class="balance_number">{{$t("balance")+':'+balance}}</div>
           </div>
           <div class="making_money">
-        
-              <input
-                type="number"
-                placeholder="0.0"
-                class="made_number"
-                @input="DBLinpot($event)"
-                v-model="DBLhowMany"
-              />
-     
+            <input
+              type="number"
+              placeholder="0.0"
+              class="made_number"
+              @input="DBLinpot($event)"
+              @blur="DBLBlur()"
+              v-model="DBLhowMany"
+            />
+
             <div class="MAX" @click="onMAX">{{$t("MAX")}}</div>
             <div class="coins">DBL</div>
           </div>
@@ -27,7 +27,7 @@
           <div class="next_step-icon">
             <img src="../assets/image/xianxia.png" />
           </div>
-          <div class="Price">{{$t("Price")}}: {{exchangePrice}} DBL ={{1}} DIBI</div>
+          <div class="Price">{{$t("Price")}}: {{exchangePrice}} DIBI ={{1}} DBL</div>
           <img class="mint-box2_icon" src="../assets/image/turn2.png" />
         </div>
         <div class="mint-box3 mint-box">
@@ -36,17 +36,14 @@
             <div class="balance_number"></div>
           </div>
           <div class="making_money">
-           
-           
-              <input
-                type="number"
-                placeholder="0.0"
-                class="made_number"
-                @input="DIBIinpot($event)"
-                readonly="readonly"
-                v-model="DIBIhowMany"
-              />
-         
+            <input
+              type="number"
+              placeholder="0.0"
+              class="made_number"
+              @input="DIBIinpot($event)"
+              readonly="readonly"
+              v-model="DIBIhowMany"
+            />
 
             <div class="coins">DlBl</div>
           </div>
@@ -60,15 +57,14 @@
             <div class="balance_number"></div>
           </div>
           <div class="making_money">
-            
-              <input
-                type="number"
-                placeholder="0.0"
-                class="made_number"
-                readonly="readonly"
-                v-model="rewardHowMany"
-              />
-           
+            <input
+              type="number"
+              placeholder="0.0"
+              class="made_number"
+              readonly="readonly"
+              v-model="rewardHowMany"
+            />
+
             <div class="coins">DlBl</div>
           </div>
         </div>
@@ -145,6 +141,7 @@ export default {
     }
 
     this.querydbl();
+    this.DBLBlur();
 
     this.getExchangePrice();
   },
@@ -152,11 +149,18 @@ export default {
   methods: {
     //获取用户的交易兑换比例
     async getExchangePrice() {
-      let { status, data } = await exchangePrice({
-        data: { pair: "DBL_DIBI" }
-      });
-      if (status === 200) {
-        this.exchangePrice = Number(data.price);
+      try {
+        let { status, data } = await exchangePrice({
+          data: { pair: "DIBI_DBL" }
+        });
+
+        if (status === 200) {
+          this.exchangePrice = Number(data.price);
+          return true;
+        }
+        return false;
+      } catch (err) {
+        return false;
       }
     },
     //DIBI用户输入时计算另外一个输入的数据
@@ -211,8 +215,44 @@ export default {
       //   ? (this.DBLhowMany = Number(val.slice(0, val.indexOf(".") + 3)))
       //   : (this.DBLhowMany = Number(val));
 
+      // this.DIBIhowMany = Math.floor(
+      //   Number(this.DBLhowMany) / this.exchangePrice
+      // );
+      // this.rewardHowMany = Math.floor(this.DIBIhowMany * 0.1);
+      // this.totalReceive = this.DIBIhowMany + this.rewardHowMany;
+      // if (
+      //   this.balance &&
+      //   this.DBLhowMany &&
+      //   this.DIBIhowMany &&
+      //   this.totalReceive &&
+      //   this.rewardHowMany
+      // ) {
+      //   this.bag = true;
+      // } else {
+      //   this.bag = false;
+      // }
+    },
+
+    async DBLBlur() {
+      if (this.DBLhowMany === "") {
+        this.DIBIhowMany = "";
+        this.rewardHowMany = "";
+        this.totalReceive = 0;
+        this.bag = false;
+        return;
+      }
+
+      if (this.DBLhowMany == 0) {
+        return;
+      }
+
+      let data = await this.getExchangePrice();
+      if (!data) {
+        return this.$toast(this.$t("ma1"));
+      }
+
       this.DIBIhowMany = Math.floor(
-        Number(this.DBLhowMany) / this.exchangePrice
+        Number(this.DBLhowMany) * this.exchangePrice
       );
       this.rewardHowMany = Math.floor(this.DIBIhowMany * 0.1);
       this.totalReceive = this.DIBIhowMany + this.rewardHowMany;
@@ -230,35 +270,38 @@ export default {
     },
     //计算出所有转换的金额
     onMAX() {
-      if (!this.exchangePrice) {
-        this.$toast(this.$t("mint1"));
-        return this.getExchangePrice();
-      }
+      this.DBLhowMany = this.balance;
 
-      let val = this.$toFixedNumber({
-        num: this.balance,
-        lengths: 2,
-        transition: false
-      });
-      this.DBLhowMany = val;
+      this.DBLBlur();
+      // if (!this.exchangePrice) {
+      //   this.$toast(this.$t("mint1"));
+      //   return this.getExchangePrice();
+      // }
 
-      this.DIBIhowMany = Math.floor(
-        Number(this.DBLhowMany) / this.exchangePrice
-      );
-      this.rewardHowMany = Math.floor(this.DIBIhowMany * 0.1);
-      this.totalReceive = this.DIBIhowMany + this.rewardHowMany;
+      // let val = this.$toFixedNumber({
+      //   num: this.balance,
+      //   lengths: 2,
+      //   transition: false
+      // });
+      // this.DBLhowMany = val;
 
-      if (
-        this.balance &&
-        this.DBLhowMany &&
-        this.DIBIhowMany &&
-        this.totalReceive &&
-        this.rewardHowMany
-      ) {
-        this.bag = true;
-      } else {
-        this.bag = false;
-      }
+      // this.DIBIhowMany = Math.floor(
+      //   Number(this.DBLhowMany) / this.exchangePrice
+      // );
+      // this.rewardHowMany = Math.floor(this.DIBIhowMany * 0.1);
+      // this.totalReceive = this.DIBIhowMany + this.rewardHowMany;
+
+      // if (
+      //   this.balance &&
+      //   this.DBLhowMany &&
+      //   this.DIBIhowMany &&
+      //   this.totalReceive &&
+      //   this.rewardHowMany
+      // ) {
+      //   this.bag = true;
+      // } else {
+      //   this.bag = false;
+      // }
     },
     //用于查询dbl余额
     async querydbl() {
@@ -457,7 +500,7 @@ export default {
   }
   // .making_money{
   //   display: flex;
-    
+
   // }
 
   .made_number {

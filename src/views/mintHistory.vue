@@ -26,21 +26,25 @@
           <div class="Collateral grayText" style="word-break:break-all;">
             <P class="box-flex Collateral-p1">
               <span class>{{$t('reward')}}:</span>
-              <span class="Collateral-p1-color">{{item.dibi_p10}}DBL</span>
+              <span class="Collateral-p1-color">{{item.dibi_p10}} DIBI</span>
             </P>
             <P>{{item.txn_hash}}</P>
           </div>
           <div class="box-time box-flex">
             <div class="grayText">{{item.created_at}}</div>
             <div class="box-flex">
-              <span class="grayText">{{$t("Fee")}}：</span>
-              <span class="blackText">{{item.fee}}DBL</span>
+              <!-- <span class="grayText">{{$t("Fee")}}：</span>
+              <span class="blackText">{{item.fee}} DBL</span> -->
             </div>
           </div>
         </div>
       </div>
 
-      <!-- <div>暂无数据</div> -->
+      <!-- 无数据时显示 -->
+      <div class="promptss" v-if="supplyList.length==0">
+        <img src="../assets/image/prompt.png">
+        <div>{{$t("prompt")}}</div>
+      </div>
     </div>
   </div>
 </template>

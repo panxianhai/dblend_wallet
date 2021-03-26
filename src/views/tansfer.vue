@@ -39,7 +39,10 @@
         </div>
       </div>
       <div class="prompt">{{$t("MaxTransfer")}} {{balance}} {{key}}</div>
-      <div class="Conflrm" @click="onConflrm">{{$t("Conflrm")}}</div>
+      <div class="prompt" v-show="!positiveSequence">{{$t("poundage")}} {{poundage}}</div>
+      <div style="width:100%;padding-top:50px;">
+        <div class="Conflrm" @click="onConflrm">{{$t("Conflrm")}}</div>
+      </div>
     </div>
     <van-popup v-model="show" round closeable style="width:70%;">
       <div class="selectToken">
@@ -57,7 +60,7 @@
 
 <script>
 import headers from "../components/headers.vue";
-import { withdraw, balance, setDeposit } from "../api/requestApi";
+import { withdraw, balance, setDeposit, getPoundage } from "../api/requestApi";
 
 export default {
   components: { headers },
@@ -65,7 +68,8 @@ export default {
   data() {
     return {
       above: "",
-      below: "Lend Wallet",
+      below: "",
+      poundage: 0.004,
       //为true是用户地址在上面，公司账号在下面
       positiveSequence: false,
       key: "",
@@ -84,12 +88,14 @@ export default {
   },
   created() {
     if (this.$route.query.to == 1) {
+      this.positiveSequence = true;
       this.below = "Lend Wallet";
       this.above =
         this.$store.state.address.substr(0, 4) +
         "……" +
         this.$store.state.address.substr(-4);
     } else {
+      this.positiveSequence = false;
       this.below =
         this.$store.state.address.substr(0, 4) +
         "……" +
@@ -99,6 +105,7 @@ export default {
     this.key = this.$route.query.key;
 
     this.getBalance();
+    // this.getPoundage()
   },
   methods: {
     //是存钱还是提现
@@ -123,6 +130,17 @@ export default {
       // this.amount = this.$toFixedNumber(this.amount);
     },
 
+    // async getPoundage() {
+    //   try {
+    //     let res = await getPoundage();
+    //     console.log(res)
+    //     if(res.status === 200){
+    //       this.poundage=res.data
+    //     }
+    //   } catch (err) {
+    //     return;
+    //   }
+    // },
     //吧用户转账的时候变成2位数
     setAmountTime() {
       if (this.amountTime) {
@@ -693,7 +711,8 @@ export default {
   font-size: 12px;
   font-weight: 500;
   color: #6d7278;
-  padding-bottom: 70px;
+  padding-bottom: 5px;
+  // padding-bottom: 70px;
 }
 .Conflrm {
   width: 100%;

@@ -59,7 +59,10 @@
         </div>
       </div>
 
-      <!-- <div>暂无数据</div> -->
+      <div class="promptss" v-if="supplyList.length==0">
+        <img src="../assets/image/prompt.png" />
+        <div>{{$t("prompt")}}</div>
+      </div>
     </div>
   </div>
 </template>
@@ -219,7 +222,7 @@ export default {
 .greenText {
   font-size: 14px;
   font-weight: 300;
-  color: #0dae6a; 
+  color: #0dae6a;
 }
 
 .box {
@@ -233,8 +236,8 @@ export default {
     width: 100%;
     border-bottom: 1px solid #f5f4f4;
   }
-  .Collateral{
-    justify-content:space-between ;
+  .Collateral {
+    justify-content: space-between;
   }
 }
 // .list-box > div:nth-child(1) {

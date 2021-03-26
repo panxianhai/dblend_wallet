@@ -3,6 +3,9 @@ export default {
   en: "En",
   zh: "中文",
 
+  prompt: "No history record has been generated",
+  poundage: "poundage",
+
   wallet: "Wallet",
   locked: "Locked",
   connect: "Connect",
@@ -32,7 +35,8 @@ export default {
   MobileWallet: "Mobile Wallet",
   Provide: "Provide interest-Mit DIBI",
   InterestPool: "Interest pool",
-  hintText:"Tips: Multiple small deposits are matched faster than a single large deposit.",
+  hintText:
+    "Tips: Multiple small deposits are matched faster than a single large deposit.",
 
   //Borrow  的页面
   BorrowHistory: "Borrow History",
@@ -55,7 +59,7 @@ export default {
   //SupplyHistory 的页面
   SupplyAmount: "Supply Amount",
   SupplyHistory: "Supply History",
-  PENDING:"PENDING",
+  PENDING: "PENDING",
   //Tansfer转账页面
   Tansfer: "Tansfer",
   From: "From",
@@ -135,7 +139,7 @@ export default {
   languageEN: "English",
   languageZH: "简体中文",
   //重置密码页面
-  newPassword:"newPassword",
+  newPassword: "newPassword",
   Reset: "Reset",
   Confirmpassword: "Confirm password",
   Confirm: "Confirm",

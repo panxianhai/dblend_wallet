@@ -104,43 +104,49 @@ export function borrowAdd({ data = {}, id } = {}) {
 }
 
 //利息池的数据
-export function mintPool({ data = {}} = {}) {
+export function mintPool({ data = {} } = {}) {
   return httpGet({ url: `/mint`, data });
 }
 
 //获取通知的数量
-export function notification({ data = {}} = {}) {
+export function notification({ data = {} } = {}) {
   return httpGet({ url: `/notification`, data });
 }
 
 //获取铸币历史
-export function mintHistory({ data = {}} = {}) {
+export function mintHistory({ data = {} } = {}) {
   return httpGet({ url: `/mint/history`, data });
 }
 
 //获取用户的借币利息数据
-export function getInterest({ data = {}} = {}) {
+export function getInterest({ data = {} } = {}) {
   return httpPost({ url: `/borrow_markets/meta_data`, data });
 }
 
-
 //获取用户的转账历史 /transfer/history
-export function transferHistory({ data = {}} = {}) {
+export function transferHistory({ data = {} } = {}) {
   return httpGet({ url: `/transfer/history`, data });
 }
 
 //存款前的资格检查
-export function supplyMarketsCheck({ data = {}} = {}) {
+export function supplyMarketsCheck({ data = {} } = {}) {
   return httpPost({ url: `/supply_markets/check`, data });
 }
 
-
 //借币前的资格检查
-export function borrowMarketsCheck({ data = {}} = {}) {
+export function borrowMarketsCheck({ data = {} } = {}) {
   return httpPost({ url: `/borrow_markets/check`, data });
 }
 
 //用户转账进入到公司账号通知
-export function setDeposit({ data = {}} = {}) {
+export function setDeposit({ data = {} } = {}) {
   return httpPost({ url: `/deposit`, data });
+}
+
+//获取转账手续费
+export function getPoundage({ data = {} } = {}) {
+  return httpPost({
+    url: "http://8.135.101.174:5908/v1/openapi/minnerfee",
+    data,
+  });
 }

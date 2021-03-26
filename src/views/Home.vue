@@ -477,7 +477,7 @@ export default {
 
     this.hasLogin();
 
-    // this.balance();
+    this.balance();
     this.getSupplyList();
     this.getPool();
   },

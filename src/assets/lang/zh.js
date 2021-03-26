@@ -3,6 +3,9 @@ export default {
   en: "En",
   zh: "中文",
 
+  prompt: "暂无产生历史记录",
+  poundage:"手续费",
+
   wallet: "个人钱包",
   locked: "钱包未连接",
   connect: "连接",
@@ -30,10 +33,10 @@ export default {
   Days: "天",
   borrow: "借款",
   MobileWallet: "Mobile Wallet",
-  Provide:"提供利息 - 铸造DIBI",
-  InterestPool:"利息池",
-  hintText:" 提示：多笔小金额存款比单笔大额存款匹配更快。",
- 
+  Provide: "提供利息 - 铸造DIBI",
+  InterestPool: "利息池",
+  hintText: " 提示：多笔小金额存款比单笔大额存款匹配更快。",
+
   //Borrow  的页面
   BorrowHistory: "借币历史",
   Collateralrate: "当前质押率",
@@ -42,12 +45,12 @@ export default {
   MAXCR: "最大质押率",
   Add: "添加",
   MAXS: "最大",
-  Time:"时间",
+  Time: "时间",
 
   //BorrowPage 借币的页面
-  BorrowPage:"Borrow",
-  BorrowAPY:"借贷利率",
-  Duration:"持续时间",
+  BorrowPage: "Borrow",
+  BorrowAPY: "借贷利率",
+  Duration: "持续时间",
   lnterest: "利息",
   BorrowFee: "生态矿工费",
   Pool: "利息池",
@@ -56,7 +59,7 @@ export default {
   SupplyAmount: "存币数量",
   SupplyHistory: "存币历史",
   BorrowHistory: "借币历史",
-  PENDING:"未匹配",
+  PENDING: "未匹配",
 
   //Tansfer转账页面
   Tansfer: "划转",
@@ -78,19 +81,17 @@ export default {
   succeed: "铸造成功",
   TransferSuccess: "划转成功",
   Mintfee: "铸造手续费",
-  totalReceiced:"总计收到",
-  MaximumMint:"最大铸币数量",
-
+  totalReceiced: "总计收到",
+  MaximumMint: "最大铸币数量",
 
   //铸币和转账手续页面
-  Fee:"手续费",
-  pending:"等待广播",
-  completed:"已完成",
-  ToLendWallet:" 划转到借贷钱包",
-  ToPersonWallet:" 划转到个人钱包",
-  Matching:"撮合中",
-   reward:"奖励",
-
+  Fee: "手续费",
+  pending: "等待广播",
+  completed: "已完成",
+  ToLendWallet: " 划转到借贷钱包",
+  ToPersonWallet: " 划转到个人钱包",
+  Matching: "撮合中",
+  reward: "奖励",
 
   //Ma 我的页面
   Me: "我",
@@ -101,12 +102,11 @@ export default {
   language: "设置语言",
   Settings: "设置",
   Signout: "退出",
-  MintHistory:"铸币历史",
-  TransferHistory:"划转历史",
-
+  MintHistory: "铸币历史",
+  TransferHistory: "划转历史",
 
   //选择币种的页面
-  selectToken:"选择币种",
+  selectToken: "选择币种",
 
   //登陆页面
   Password: "密码",
@@ -123,8 +123,8 @@ export default {
   ProductUpdates: "产品更新",
   AccountAlerts: "借贷信息提醒",
   e_mail: "输入您的邮箱",
-  SetPassword:"设置密码",
-  inputPassword:"请输入密码",
+  SetPassword: "设置密码",
+  inputPassword: "请输入密码",
 
   //VerificationCode  验证码的页面
   ResetPassword: "重置密码",
@@ -142,11 +142,11 @@ export default {
   languageEN: "English",
   languageZH: "简体中文",
   //重置密码页面
-  newPassword:"新密码",
+  newPassword: "新密码",
   Reset: "重置",
   Confirmpassword: "确认密码",
-  Confirm:"确认",
-  ConfirmPassword:"请确认登录密码",
+  Confirm: "确认",
+  ConfirmPassword: "请确认登录密码",
 
   //提示
   home1: "连接失败",
@@ -170,7 +170,7 @@ export default {
   login3: "密码最少要有数字和英文2种格式",
   login4: "请先连接钱包",
   login5: "获取验证码成功",
-  login6:"铸币失败",
+  login6: "铸币失败",
   tansfer1: "转账金额不得超过余额",
   tansfer2: "划转功能暂未开启",
   ma1: "网络异常",

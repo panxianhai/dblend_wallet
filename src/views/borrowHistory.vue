@@ -66,7 +66,10 @@
         </div>
       </div>
       <!-- 无数据时显示 -->
-      <!-- <div class="BorrowHistory-hint" v-if="borrowList.length==0">暂无数据</div> -->
+      <div class="promptss" v-if="borrowList.length==0">
+        <img src="../assets/image/prompt.png" />
+        <div>{{$t("prompt")}}</div>
+      </div>
     </div>
 
     <!-- Borrow 弹框-->

@@ -81,10 +81,12 @@ body {
   line-height: 1.5;
   color: #333;
 }
+
 table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+
 h1,
 h2,
 h3,
@@ -95,20 +97,24 @@ th {
   font-size: 100%;
   font-weight: normal;
 }
+
 button,
 input,
 select,
 textarea {
   font-size: 100%;
 }
+
 fieldset,
 img {
   border: 0;
 }
+
 a,
 img {
   -webkit-touch-callout: none;
 }
+
 a,
 a:active,
 a:focus,
@@ -116,6 +122,7 @@ a:hover,
 a:visited {
   text-decoration: none;
 }
+
 input[type="password"],
 input[type="text"],
 textarea {
@@ -129,6 +136,7 @@ textarea {
   outline: none;
   border: 0px;
 }
+
 input {
   resize: none;
   outline: 0;
@@ -140,6 +148,7 @@ input {
   outline: none;
   border: 0px;
 }
+
 /* input:-internal-autofill-selected{
   margin: 0px;
   padding: 0px;
@@ -164,14 +173,14 @@ select {
   /* appearance:none; */
   /* -moz-appearance:none; */
   /* -webkit-appearance:none; */
-  
+
   /*将背景改为红色*/
 
   /*加padding防止文字覆盖*/
   /* padding-right: 14px; */
-  }
+}
 
-  /* select {
+/* select {
     清除baiselect的边框样式 
     border: none;
    清除select聚焦du时候的边框颜zhi色
@@ -180,20 +189,21 @@ select {
     -webkit-appearance: none;
     -moz-appearance: none;
     } */
-    /* option::-ms-expand{
+/* option::-ms-expand{
     display: none;
     } */
-    option{
-      /* Firefox */
-    /* -moz-appearance:none;  */
-    /* Safari 和 Chrome */
-    /* -webkit-appearance:none; */
-    /* appearance:none;
+option {
+  /* Firefox */
+  /* -moz-appearance:none;  */
+  /* Safari 和 Chrome */
+  /* -webkit-appearance:none; */
+  /* appearance:none;
     outline: none;
     border: 0; */
-    }
-    /* --背景色dao字zhuan体颜色--*/
-    /* option:hover{
+}
+
+/* --背景色dao字zhuan体颜色--*/
+/* option:hover{
     color:#ffffff;
     background-color:#ffffff;
     outline: none;
@@ -207,33 +217,67 @@ ol {
 :focus {
   outline: none;
 }
-*{
+
+* {
   font-family: Medium;
 }
 
 
 /* 设置引用字体库 */
-@font-face{
-  font-family:Black;
-  src:url("../assets/font/NotoSansHans-Black.otf");
+@font-face {
+  font-family: Black;
+  src: url("../assets/font/NotoSansHans-Black.otf");
 }
-@font-face{
-  font-family:Bold;
-  src:url("../assets/font/NotoSansHans-Bold.otf");
-}@font-face{
-  font-family:DemiLight;
-  src:url("../assets/font/NotoSansHans-DemiLight.otf");
-}@font-face{
-  font-family:Light;
-  src:url("../assets/font/NotoSansHans-Light.otf");
-}@font-face{
-  font-family:Medium;
-  src:url("../assets/font/NotoSansHans-Medium.otf");
-}@font-face{
-  font-family:Regular;
-  src:url("../assets/font/NotoSansHans-Regular.otf");
-}@font-face{
-  font-family:ThinWindows;
-  src:url("../assets/font/NotoSansHans-Thin-Windows.otf");
 
+@font-face {
+  font-family: Bold;
+  src: url("../assets/font/NotoSansHans-Bold.otf");
+}
+
+@font-face {
+  font-family: DemiLight;
+  src: url("../assets/font/NotoSansHans-DemiLight.otf");
+}
+
+@font-face {
+  font-family: Light;
+  src: url("../assets/font/NotoSansHans-Light.otf");
+}
+
+@font-face {
+  font-family: Medium;
+  src: url("../assets/font/NotoSansHans-Medium.otf");
+}
+
+@font-face {
+  font-family: Regular;
+  src: url("../assets/font/NotoSansHans-Regular.otf");
+}
+
+@font-face {
+  font-family: ThinWindows;
+  src: url("../assets/font/NotoSansHans-Thin-Windows.otf");
+
+}
+
+
+.promptss {
+  width: 100%;
+  height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.promptss>img {
+  width: 84px;
+  height: 84px;
+}
+
+.promptss>div {
+  padding-top: 15px;
 }
