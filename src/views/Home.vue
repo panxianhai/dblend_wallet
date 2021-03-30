@@ -1205,6 +1205,16 @@ export default {
       } catch {
         this.notificationNumber = 0;
       }
+    },
+
+    //用户点击头部切换下面借贷列表
+    topClick(val) {
+      this.balance(val);
+      if (val == 1) {
+        this.getSupplyList({ query: 90 });
+      } else {
+        this.getBorrowList({ query: 90 });
+      }
     }
   }
 };
@@ -1740,7 +1750,7 @@ export default {
   color: #262626;
 }
 .hint-text {
-  padding-top:20px ;
+  padding-top: 20px;
   font-size: 16px;
   font-weight: 400;
   color: rgba(38, 38, 38, 0.5);

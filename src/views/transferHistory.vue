@@ -9,7 +9,7 @@
           <div class="titlePrompt box-flex">
             <div
               class="box-flex Days"
-            >{{item.amount+' '+item.coin_type}}{{item.status=='D'?$t("ToPersonWallet"):$t("ToLendWallet")}}</div>
+            >{{item.amount+' '+item.coin_type}}{{item.txn_type=='D'?$t("ToPersonWallet"):$t("ToLendWallet")}}</div>
             <div
               class="grayText"
               style="white-space:nowrap;"
@@ -21,7 +21,7 @@
           <div class="Collateral grayText" style="word-break:break-all;">{{item.txn_hash}}</div>
           <div class="box-time box-flex">
             <div class="grayText">{{item.created_at}}</div>
-            <div class="box-flex" v-show="item.status=='W'">
+            <div class="box-flex" v-show="item.txn_type=='D'">
               <span class="grayText">{{$t("Fee")}}：</span>
               <span class="blackText">{{item.fee?item.fee:0}}</span>
             </div>

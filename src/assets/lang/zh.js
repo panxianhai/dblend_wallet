@@ -4,7 +4,7 @@ export default {
   zh: "中文",
 
   prompt: "暂无产生历史记录",
-  poundage:"手续费",
+  poundage: "手续费约",
 
   wallet: "个人钱包",
   locked: "钱包未连接",
@@ -46,6 +46,7 @@ export default {
   Add: "添加",
   MAXS: "最大",
   Time: "时间",
+  reward: "奖励",
 
   //BorrowPage 借币的页面
   BorrowPage: "Borrow",
@@ -91,7 +92,8 @@ export default {
   ToLendWallet: " 划转到借贷钱包",
   ToPersonWallet: " 划转到个人钱包",
   Matching: "撮合中",
-  reward: "奖励",
+  underMatching: "撮合失败",
+  MatchingSuccessful: "撮合成功",
 
   //Ma 我的页面
   Me: "我",

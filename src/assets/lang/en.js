@@ -78,6 +78,9 @@ export default {
   completed: " completed",
   ToLendWallet: " To LendWallet",
   ToPersonWallet: " To PersonWallet",
+  underMatching:"Matching failure",
+  Matching: "matching",
+  MatchingSuccessful:"MatchingSuccessful",
 
   //Mint的页面
   MintDIBI: "Mint DIBI",

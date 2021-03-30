@@ -5,27 +5,34 @@
     <headers title="MintHistory" />
 
     <div class="BorrowHistory-list" ref="boxHeight">
-      <div class="list-box" v-for="(item,index) in supplyList" :key="index">
+      <div class="list-box" v-for="(item,index) in supplyList" :key="item.id">
         <div class="box-flex Days-time">
-          <div class="titleIcon" :class="{iconColor:item.status==3}"></div>
+          <div class="titleIcon" :class="{iconColor:item.status==1}"></div>
 
           <div class="titlePrompt box-flex">
             <div class="box-flex Days">
               <div class>{{item.dbl_in}} DBL</div>
-              <div class="titlePrompt-icon">Mint</div>
+              <div class="titlePrompt-icon">{{$t("Mint")}}</div>
               <div class>{{item.dibi_amount}} DIBI</div>
             </div>
+            <!-- <div
+              class="grayText"
+              style="white-space:nowrap;"
+              
+            >{{$t("underMatching")}}</div>-->
             <div
               class="grayText"
               style="white-space:nowrap;"
-            >{{item.status==3?$t("completed"):$t("Matching")}}</div>
+              v-if="item.status==0||item.status==1 "
+            >{{$t("Matching")}}</div>
+            <div class="grayText" style="white-space:nowrap;" v-else>{{$t("MatchingSuccessful")}}</div>
           </div>
         </div>
 
         <div class="box">
           <div class="Collateral grayText" style="word-break:break-all;">
             <P class="box-flex Collateral-p1">
-              <span class>{{$t('reward')}}:</span>
+              <span class>{{$t('Reward')}}:</span>
               <span class="Collateral-p1-color">{{item.dibi_p10}} DIBI</span>
             </P>
             <P>{{item.txn_hash}}</P>
@@ -34,7 +41,7 @@
             <div class="grayText">{{item.created_at}}</div>
             <div class="box-flex">
               <!-- <span class="grayText">{{$t("Fee")}}：</span>
-              <span class="blackText">{{item.fee}} DBL</span> -->
+              <span class="blackText">{{item.fee}} DBL</span>-->
             </div>
           </div>
         </div>
@@ -42,7 +49,7 @@
 
       <!-- 无数据时显示 -->
       <div class="promptss" v-if="supplyList.length==0">
-        <img src="../assets/image/prompt.png">
+        <img src="../assets/image/prompt.png" />
         <div>{{$t("prompt")}}</div>
       </div>
     </div>
@@ -99,8 +106,6 @@ export default {
       });
       this.getData = false;
       if (status === 200) {
-
-
         if (data.length < 10) {
           this.hasAll = true;
         }

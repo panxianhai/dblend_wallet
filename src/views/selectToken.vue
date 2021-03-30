@@ -1,6 +1,6 @@
 <template>
   <div class="BorrowHistory">
-    <headers title="selectToken"  align="center"  />
+    <headers title="selectToken" align="center" />
 
     <!-- <div class="header box-flex">
       <div class="header-left box-flex">
@@ -11,7 +11,7 @@
         />
         <p :class="{paddingPX:align=='center'}">{{$t('selectToken')}}</p>
       </div>
-    </div> -->
+    </div>-->
 
     <div class="BorrowHistory-list">
       <div class="Settings-language">
@@ -57,7 +57,8 @@ export default {
   data() {
     return {
       token: "",
-      align: "center"
+      align: "center",
+      to: this.$route.query.to
     };
   },
   created() {
@@ -68,7 +69,10 @@ export default {
   methods: {
     onlang(value) {
       this.token = value;
-      this.$router.push({path:"/tansfer",query:{key:value}})
+      this.$router.push({
+        path: "/tansfer",
+        query: { key: value, to: this.to }
+      });
     }
   }
 };
@@ -139,7 +143,7 @@ export default {
     }
     .flexRight {
       color: rgba(120, 120, 120, 1);
-      padding-left:20px ;
+      padding-left: 20px;
     }
     & > img {
       width: 17px;

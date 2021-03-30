@@ -18,7 +18,10 @@
       </div>
       <div class="Token box-flex">
         <input type="number" disabled="disabled" :placeholder="$t('Token')" />
-        <div class="box-flex" @click="$router.push({path:'selectToken',query:{token:key}})">
+        <div
+          class="box-flex"
+          @click="$router.push({path:'selectToken',query:{token:key,to:positiveSequence?1:2}})"
+        >
           <!-- <Select v-model="key" style="width:70px;font-size:16px;" size="small">
             <Option v-for="item in cityList" :value="item.value" :key="item.label">{{ item.label }}</Option>
           </Select>-->
@@ -38,7 +41,10 @@
           <div class="MAX" @click="onMAX">{{$t("MAX")}}</div>
         </div>
       </div>
-      <div class="prompt">{{$t("MaxTransfer")}} {{balance}} {{key}}</div>
+      <div class="prompt">
+        <div>{{$t("MaxTransfer")}} {{balance}} {{key}}</div>
+        <div>{{$t("poundage")}} {{fee.poundage}} {{fee.coin_type }}</div>
+      </div>
       <div
         class="prompt"
         v-show="!positiveSequence"
@@ -723,6 +729,9 @@ export default {
   color: #6d7278;
   padding-bottom: 5px;
   // padding-bottom: 70px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .Conflrm {
   width: 100%;
