@@ -27,7 +27,7 @@
           <div class="next_step-icon">
             <img src="../assets/image/xianxia.png" />
           </div>
-          <div class="Price">{{$t("Price")}}: {{exchangePrice}} DIBI ={{1}} DBL</div>
+          <div class="Price">{{$t("Price")}}: {{1}} DBL = {{exchangePrice}} DIBI</div>
           <img class="mint-box2_icon" src="../assets/image/turn2.png" />
         </div>
         <div class="mint-box3 mint-box">

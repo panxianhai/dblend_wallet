@@ -189,7 +189,11 @@ export default {
       // if(){}else if(){}else if(){}
       try {
         let { status, data } = await getInterest({
-          data: { market_id: this.id, amount: this.amountDBL }
+          data: {
+            market_id: this.id,
+            amount: this.amountDBL,
+            borrow_rate: this.pledge / 100
+          }
         });
 
         for (let keys in data) {
@@ -293,7 +297,7 @@ export default {
         (this.amountKEY / this.pledge / this.conversionRate) * 100
       );
 
-      console.log(this.amountKEY ,this.pledge , this.conversionRate)
+      console.log(this.amountKEY, this.pledge, this.conversionRate);
 
       this.amountDBL = this.$toFixedNumber({
         num: amountDBL,

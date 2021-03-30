@@ -145,8 +145,8 @@ export function setDeposit({ data = {} } = {}) {
 
 //获取转账手续费
 export function getPoundage({ data = {} } = {}) {
-  return httpPost({
-    url: "http://8.135.101.174:5908/v1/openapi/minnerfee",
+  return httpGet({
+    url: "/miner_fee",
     data,
   });
 }

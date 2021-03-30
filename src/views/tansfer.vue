@@ -39,7 +39,10 @@
         </div>
       </div>
       <div class="prompt">{{$t("MaxTransfer")}} {{balance}} {{key}}</div>
-      <div class="prompt" v-show="!positiveSequence">{{$t("poundage")}} {{poundage}}</div>
+      <div
+        class="prompt"
+        v-show="!positiveSequence"
+      >{{$t("poundage")}} {{fee.poundage}} {{fee.coin_type }}</div>
       <div style="width:100%;padding-top:50px;">
         <div class="Conflrm" @click="onConflrm">{{$t("Conflrm")}}</div>
       </div>
@@ -69,7 +72,10 @@ export default {
     return {
       above: "",
       below: "",
-      poundage: 0.004,
+      fee: {
+        poundage: 0,
+        coin_type: ""
+      },
       //为true是用户地址在上面，公司账号在下面
       positiveSequence: false,
       key: "",
@@ -105,7 +111,7 @@ export default {
     this.key = this.$route.query.key;
 
     this.getBalance();
-    // this.getPoundage()
+    this.getPoundage();
   },
   methods: {
     //是存钱还是提现
@@ -115,6 +121,7 @@ export default {
       this.below = storageS;
       this.positiveSequence = !this.positiveSequence;
       this.getBalance();
+      this.getPoundage();
     },
 
     //获取用户最大的转账余额
@@ -130,17 +137,19 @@ export default {
       // this.amount = this.$toFixedNumber(this.amount);
     },
 
-    // async getPoundage() {
-    //   try {
-    //     let res = await getPoundage();
-    //     console.log(res)
-    //     if(res.status === 200){
-    //       this.poundage=res.data
-    //     }
-    //   } catch (err) {
-    //     return;
-    //   }
-    // },
+    async getPoundage() {
+      try {
+        let { data, status } = await getPoundage({
+          data: { symbol: this.key }
+        });
+
+        if (status === 200) {
+          this.fee = { poundage: data.fee, coin_type: data.coin_type };
+        }
+      } catch (err) {
+        return;
+      }
+    },
     //吧用户转账的时候变成2位数
     setAmountTime() {
       if (this.amountTime) {
@@ -585,6 +594,7 @@ export default {
   watch: {
     key() {
       this.getBalance();
+      this.getPoundage();
     }
   }
 };

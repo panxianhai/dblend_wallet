@@ -151,6 +151,7 @@ export default {
       borrowShow: false,
       //数据列表
       borrowList: [],
+      renovateCurrentPage: 0,
       //页数
       page: 1,
       //是否已经获取全部的数据
@@ -178,39 +179,55 @@ export default {
     window.removeEventListener("scroll", this.handleScroll, false);
   },
   methods: {
-    //获取Supply的历史列表
-    async supplyHistory(Initialize = true) {
-      if (this.hasAll) return;
+    //获取借款历史列表的历史列表
+    async supplyHistory({
+      Initialize = true,
+      renovateCurrentData = false,
+      currentPage = 1
+    } = {}) {
+      if (!renovateCurrentData) {
+        if (this.hasAll) return;
+      }
+      let page = 1;
+
       if (this.getData) return;
       this.getData = true;
 
       if (Initialize) {
         this.hasAll = false;
         this.page == 1;
+        page = 1;
       } else {
-        this.page += 1;
+        !renovateCurrentData && Initialize == true
+          ? (page = this.page += 1)
+          : (page = currentPage);
       }
 
       let {
         status,
         data: { data }
       } = await borrowHistorys({
-        data: { page: this.page, page_size: 10 }
+        data: { page, page_size: 10 }
       });
-      this.getData = false;
 
+      this.getData = false;
       if (status === 200) {
-        if (data.length < 10) {
-          this.hasAll = true;
+        if (!renovateCurrentData) {
+          if (data.length < 10) {
+            this.hasAll = true;
+          }
+
+          if (Initialize) {
+            this.borrowList = [];
+          }
         }
-        if (Initialize) {
-          this.borrowList = [];
-          return data.forEach(value => {
+
+        data.forEach((value, index) => {
+          if (renovateCurrentData) {
+            this.borrowList.splice(page * 10 - 10 + index, 1, value);
+          } else {
             this.borrowList.push(value);
-          });
-        }
-        data.forEach(value => {
-          this.borrowList.push(value);
+          }
         });
       }
     },
@@ -225,7 +242,7 @@ export default {
         return;
       }
       if (HTMLheight - top - wimHeight < 200) {
-        this.supplyHistory(false);
+        this.supplyHistory({ Initialize: false });
       }
     },
     //用户关闭弹框
@@ -259,6 +276,12 @@ export default {
       if (res.status === 200) {
         this.borrowShow = true;
         this.conversionRate = res.data.price;
+        let page = index / 10;
+        if (page == 0) {
+          this.renovateCurrentPage = 1;
+        } else {
+          this.renovateCurrentPage = Math.ceil(page);
+        }
       } else {
         this.$toast(res.data.message);
         return this.$toast.clear();
@@ -369,6 +392,11 @@ export default {
           this.borrowDBLNumber = "";
           this.borrowMoneyNumber = "";
           this.borrowShow = false;
+          this.supplyHistory({
+            Initialize: false,
+            renovateCurrentData: true,
+            currentPage: this.renovateCurrentPage
+          });
           return this.$toast(this.$t("home8"));
         }
 

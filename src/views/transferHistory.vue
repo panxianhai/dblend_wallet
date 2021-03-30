@@ -3,10 +3,9 @@
     <headers title="TransferHistory" />
 
     <div class="BorrowHistory-list" ref="boxHeight">
-      <div class="list-box" v-for="(item,index) in supplyList" :key="index">
+      <div class="list-box" v-for="(item,index) in supplyList" :key="item.id">
         <div class="box-flex Days-time">
-          <div class="titleIcon" :class="{iconColor:item.status==1}"></div>
-
+          <div class="titleIcon" :class="{iconColor:item.status==0}"></div>
           <div class="titlePrompt box-flex">
             <div
               class="box-flex Days"
@@ -22,7 +21,7 @@
           <div class="Collateral grayText" style="word-break:break-all;">{{item.txn_hash}}</div>
           <div class="box-time box-flex">
             <div class="grayText">{{item.created_at}}</div>
-            <div class="box-flex">
+            <div class="box-flex" v-show="item.status=='W'">
               <span class="grayText">{{$t("Fee")}}：</span>
               <span class="blackText">{{item.fee?item.fee:0}}</span>
             </div>
@@ -31,7 +30,7 @@
       </div>
 
       <div class="promptss" v-if="supplyList.length==0">
-        <img src="../assets/image/prompt.png">
+        <img src="../assets/image/prompt.png" />
         <div>{{$t("prompt")}}</div>
       </div>
     </div>
@@ -86,15 +85,14 @@ export default {
       } = await transferHistory({
         data: { page: this.page, page_size: 10 }
       });
-
       this.getData = false;
+
       if (status === 200) {
         if (data.length < 10) {
           this.hasAll = true;
         }
-
         if (Initialize) {
-          this.supplyList = [];
+          this.borrowList = [];
         }
 
         data.forEach(value => {
@@ -111,7 +109,6 @@ export default {
               lengths: 0
             });
           }
-
           this.supplyList.push(value);
         });
       }
