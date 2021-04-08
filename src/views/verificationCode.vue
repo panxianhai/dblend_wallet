@@ -50,7 +50,7 @@ export default {
   name: "VerificationCode",
   data() {
     return {
-      //判断是重置密码还是注册,true是注册
+      //判断是重置密码还是注册,1是注册
       register: "",
       //验证码
       code: "",
@@ -109,47 +109,54 @@ export default {
     },
     //用户注册
     async onRegister() {
-      //判断用户输入的数据格式是否正确
-      if (
-        !this.$judgeRules({
-          rules: /^[a-zA-Z0-9_-]+@([a-zA-Z0-9]+\.)+(com|cn|net|org)$/,
-          value: this.email
-        })
-      )
-        return this.$toast("login2");
+      try {
+        //判断用户输入的数据格式是否正确
+        if (
+          !this.$judgeRules({
+            rules: /^[a-zA-Z0-9_-]+@([a-zA-Z0-9]+\.)+(com|cn|net|org)$/,
+            value: this.email
+          })
+        )
+          return this.$toast(this.$t("login2"));
 
-      if (this.password.length < 8) return this.$toast("login1");
+        if (this.password.length < 8) return this.$toast("login1");
 
-      //注册前查看
-      if (!this.address) return this.$toast("login4");
+        //注册前查看
+        if (!this.address) return this.$toast("login4");
 
-      //判断用户是否已经在请求中
-      if (this.request) {
-        this.request = false;
-        this.$toast.loading({
-          overlay: true,
-          message: this.$t("VerificationCode4")
-        });
-        let { status, data } = await register({
-          data: {
-            username: this.email,
-            password: this.password,
-            code: this.code,
-            address: this.address
+        //判断用户是否已经在请求中
+        if (this.request) {
+          this.request = false;
+          this.$toast.loading({
+            overlay: true,
+            message: this.$t("VerificationCode4")
+          });
+          let { status, data } = await register({
+            data: {
+              username: this.email,
+              password: this.password,
+              code: this.code,
+              address: this.address
+            }
+          });
+
+          if (status === 200) {
+            // this.$toast.clear();
+            // this.$toast.clear();
+            this.$store.commit("modifyData", { key: "email", value: "" });
+            this.$store.commit("modifyData", { key: "password", value: "" });
+            sessionStorage.removeItem("code");
+            this.$toast(this.$t("VerificationCode5"));
+            return setTimeout(() => {
+              this.$router.push({ path: "/login", query: { login: 1 } });
+            }, 1500);
           }
-        });
-
-        if (status === 200) {
-          this.$toast.clear();
-          this.$store.commit("modifyData", { key: "email", value: "" });
-          this.$store.commit("modifyData", { key: "password", value: "" });
-          sessionStorage.removeItem("code");
-          this.$toast(this.$t("VerificationCode5"));
-          setTimeout(() => {
-            this.$router.push({ path: "/login", query: { login: 1 } });
-          }, 1500);
+          this.$toast(this.$t("VerificationCode8"));
+          this.request = true;
         }
+      } catch (err) {
         this.request = true;
+        this.$toast(this.$t("VerificationCode8"));
       }
     },
     //用户重新获取验证码，注册和密码都有

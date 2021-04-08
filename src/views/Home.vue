@@ -532,7 +532,8 @@ export default {
             }
           })
           .catch(error => {
-            throw new Error(error);
+            this.$toast(this.$t("home3"));
+            // throw new Error(error);
           });
       } else {
         this.$toast("MetaMask doesnt exist");
@@ -629,7 +630,6 @@ export default {
       } catch (error) {
         this.$set(this.walletBalance, "DBL", 0);
         this.$toast(this.$t("home3"));
-        throw new Error(error);
       }
     },
 
@@ -656,8 +656,8 @@ export default {
           from: from,
           to: to,
           value: this.$toWei(amount, "ether"),
-          data: txdata
-          // gas:60000
+          data: txdata,
+          gas: "60000"
         };
 
         // web3.eth.sendTransaction(transactionData, (err, res) => {
@@ -680,7 +680,8 @@ export default {
         dblContract.methods
           .transfer(this.$store.state.to, this.$toWei(0.1, "Gwei"))
           .send(
-            { from: this.loginAccount, gas: 60000 },
+            // 测试
+            { from: this.loginAccount, gas: "60000" },
             (error, transactionHash) => {
               // if (!error) {
               //   console.log("transactionHash is " + transactionHash);
@@ -699,7 +700,8 @@ export default {
         dibiContract.methods
           .transfer(this.$store.state.to, this.$toWei(0.1, "Gwei"))
           .send(
-            { from: this.loginAccount, gas: 60000 },
+            //测试
+            { from: this.loginAccount, gas: "60000" },
             (error, transactionHash) => {
               // if (!error) {
               //   console.log("transactionHash is " + transactionHash);

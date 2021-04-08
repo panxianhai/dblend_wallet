@@ -865,19 +865,19 @@ const dibiABI = [
 //配置好的dbl的创建的服务器对象
 
 //usdt的钱包地址
-// const usdtContractAddress = "0xdac17f958d2ee523a2206206994597c13d831ec7";
+const usdtContractAddress = "0xdac17f958d2ee523a2206206994597c13d831ec7";
 //usdt测试地址
-const usdtContractAddressAA = "0x990409CDBcCf4F7E4fc9EA34C254cB2bE12e8222";
+// const usdtContractAddressAA = "0x990409CDBcCf4F7E4fc9EA34C254cB2bE12e8222";
 
 //dibi的钱包地址
-// const dibiContractAddress = "0xf2375Ec44934Fe96eE5FFB8eD597c6f9349771Fd";
+const dibiContractAddress = "0xf2375Ec44934Fe96eE5FFB8eD597c6f9349771Fd";
 //测试dibi的钱包地址
-const dibiContractAddressAA = "0x82d1a1268F2A95d8EBEB4868c937DF2038887F5e";
+//const dibiContractAddressAA = "0x82d1a1268F2A95d8EBEB4868c937DF2038887F5e";
 
 //dbl的钱包地址
-// const dblContractAddress = "0x3800544c0ad45e2222d67151ff08ee0c476f6221";
+const dblContractAddress = "0x3800544c0ad45e2222d67151ff08ee0c476f6221";
 //测试dbl的钱包地址
-const dblContractAddressAA = "0x451d66BdAECBAa1c379D3AcbbBE1ADb0Df6FAF2D";
+//const dblContractAddressAA = "0x451d66BdAECBAa1c379D3AcbbBE1ADb0Df6FAF2D";
 
 //MetaMask会向网页注入一个全局的API变量window.ethereum
 //初始化过程
@@ -885,7 +885,7 @@ const dblContractAddressAA = "0x451d66BdAECBAa1c379D3AcbbBE1ADb0Df6FAF2D";
 // Web3 = require("web3");
 // require("@metamask/legacy-web3");
 Web3 = require("./web3.min.js");
-// const
+
 
 // var { web3 } = window;
 
@@ -895,20 +895,16 @@ if (typeof window.ethereum !== "undefined") {
   // 如果已经设置了Provider，则返回当前的Provider。这个方法可以用来检查在使用mist浏览器等情况下已经设置过Provider，避免重复设置的情况。
 
   //创建一个ETH和USDT的全局对象，用于连接钱包和服务器
-  // Web3Provider = new Web3(web3.currentProvider);
-  // usdtContract = new Web3Provider.eth.Contract(usdtABI, usdtContractAddress);
-  // dibiContract = new Web3Provider.eth.Contract(dibiABI, dibiContractAddress);
-  // dblContract = new Web3Provider.eth.Contract(dibiABI, dblContractAddress);
+  Web3Provider = new Web3(web3.currentProvider);
+  usdtContract = new Web3Provider.eth.Contract(usdtABI, usdtContractAddress);
+  dibiContract = new Web3Provider.eth.Contract(dibiABI, dibiContractAddress);
+  dblContract = new Web3Provider.eth.Contract(dibiABI, dblContractAddress);
 
   //测试环境
-  Web3Provider = new Web3(web3.currentProvider);
-  usdtContract = new Web3Provider.eth.Contract(usdtABI, usdtContractAddressAA);
-  dibiContract = new Web3Provider.eth.Contract(dibiABI, dibiContractAddressAA);
-  dblContract = new Web3Provider.eth.Contract(dibiABI, dblContractAddressAA);
-
   // Web3Provider = new Web3(web3.currentProvider);
-  // usdtContract = web3.eth.contract(usdtABI).at(usdtContractAddressAA);
-  // // console.log(usdtContract)
-  // dibiContract = web3.eth.contract(usdtABI).at(dibiContractAddressAA);
-  // dblContract = web3.eth.contract(dibiABI).at(dblContractAddressAA);
+  // usdtContract = new Web3Provider.eth.Contract(usdtABI, usdtContractAddressAA);
+  // dibiContract = new Web3Provider.eth.Contract(dibiABI, dibiContractAddressAA);
+  // dblContract = new Web3Provider.eth.Contract(dibiABI, dblContractAddressAA);
+
+  
 }

@@ -78,9 +78,9 @@ export default {
   completed: " completed",
   ToLendWallet: " To LendWallet",
   ToPersonWallet: " To PersonWallet",
-  underMatching:"Matching failure",
+  underMatching: "Matching failure",
   Matching: "matching",
-  MatchingSuccessful:"MatchingSuccessful",
+  MatchingSuccessful: "MatchingSuccessful",
 
   //Mint的页面
   MintDIBI: "Mint DIBI",
@@ -179,6 +179,7 @@ export default {
   VerificationCode3: "Reset the success",
   VerificationCode4: "In the register",
   VerificationCode5: "Registered successfully",
+  VerificationCode8: "fail to register",
   VerificationCode6: "Verification code has been sent successfully",
   VerificationCode7: "Verification code sending failed",
   borrowHistory1: "The number of mortgages exceeds the balance",

@@ -43,12 +43,9 @@
       </div>
       <div class="prompt">
         <div>{{$t("MaxTransfer")}} {{balance}} {{key}}</div>
-        <div>{{$t("poundage")}} {{fee.poundage}} {{fee.coin_type }}</div>
+        <div v-show="!positiveSequence">{{$t("poundage")}} {{fee.poundage}} {{fee.coin_type }}</div>
       </div>
-      <div
-        class="prompt"
-        v-show="!positiveSequence"
-      >{{$t("poundage")}} {{fee.poundage}} {{fee.coin_type }}</div>
+      <div class="prompt" v-show="false">{{$t("poundage")}} {{fee.poundage}} {{fee.coin_type }}</div>
       <div style="width:100%;padding-top:50px;">
         <div class="Conflrm" @click="onConflrm">{{$t("Conflrm")}}</div>
       </div>
@@ -150,6 +147,32 @@ export default {
         });
 
         if (status === 200) {
+          switch (data.coin_type) {
+            case "ETH":
+              data.fee = this.$toFixedNumber({
+                num: data.fee,
+                lengths: 4
+              });
+              break;
+            case "USDT":
+              data.fee = this.$toFixedNumber({
+                num: data.fee,
+                lengths: 2
+              });
+              break;
+            case "DBL":
+              data.fee = this.$toFixedNumber({
+                num: data.fee,
+                lengths: 4
+              });
+              break;
+            case "DIBI":
+              data.fee = this.$toFixedNumber({
+                num: data.fee,
+                lengths: 0
+              });
+              break;
+          }
           this.fee = { poundage: data.fee, coin_type: data.coin_type };
         }
       } catch (err) {

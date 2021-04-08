@@ -181,6 +181,7 @@ export default {
   VerificationCode3: "重置成功",
   VerificationCode4: "注册中",
   VerificationCode5: "注册成功",
+  VerificationCode8: "注册失败",
   VerificationCode6: "验证码发送成功",
   VerificationCode7: "验证码发送失败",
   borrowHistory1: "抵押贷款的数量超过了余额",
