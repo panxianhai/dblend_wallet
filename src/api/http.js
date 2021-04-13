@@ -5,9 +5,9 @@ import { Toast } from "vant";
 let request = axios.create({
   //正式
   baseURL: "https://defiapi.dblend.club/api",
-  //测试地址
+  // 测试地址
   // baseURL: "https://dblend-api.phpuser.net/api",
-  //测试地址
+  // //测试地址 ,
   // baseURL: "https://dblend-api.coderoad.org/api"
 });
 
@@ -44,6 +44,8 @@ request.interceptors.response.use(
       // 对响应错误做点什么
       return err.response;
     }
+
+    // console.log(err)
 
     if (err.response.status == 400) {
       if (err.response.data.message) {

@@ -21,7 +21,11 @@
         <span>{{$t("PASSWORD")}}</span>
       </div>
       <div>
-        <input type="password" :placeholder="login==1?$t('inputPassword'):$t('SetPassword')" v-model="password" />
+        <input
+          type="password"
+          :placeholder="login==1?$t('inputPassword'):$t('SetPassword')"
+          v-model="password"
+        />
       </div>
       <!-- 注册 -->
       <div class="information" v-if="login==0">
@@ -155,7 +159,11 @@ export default {
           });
 
           //添加用户的数据
-          this.$store.commit("amendData", { key: "userData", value: data });
+          this.$store.commit("amendData", {
+            key: "userData",
+            value: data,
+            conversio: true
+          });
           this.$router.push({ path: "/" });
         }
       } else {

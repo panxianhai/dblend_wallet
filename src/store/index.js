@@ -5,10 +5,12 @@ Vue.use(Vuex);
 
 var store = new Vuex.Store({
   state: {
-    token: JSON.parse(localStorage.getItem("token")) || "",
-    lang: JSON.parse(localStorage.getItem("lang")) || "zh",
     //
-    address: JSON.parse(localStorage.getItem("address")) || "",
+    token: localStorage.getItem("token") || "",
+    lang: localStorage.getItem("lang") || "zh",
+    //
+    //
+    address: localStorage.getItem("address") || "",
     email: "", //用户账号
     password: "", //用户密码
     temporaryAddress: "", //用户临时地址
@@ -28,14 +30,14 @@ var store = new Vuex.Store({
   },
   mutations: {
     //删除或吧存储数据存储到本地同步
-    amendData(state, { key, value = "" }) {
+    amendData(state, { key, value = "", conversio = false } = {}) {
       if (!value) {
         localStorage.removeItem(key);
         state[key] = "";
         return;
       }
 
-      localStorage.setItem(key, JSON.stringify(value));
+      localStorage.setItem(key, conversio ? JSON.stringify(value) : value);
       state[key] = value;
       return;
     },
@@ -51,7 +53,7 @@ var store = new Vuex.Store({
       return;
     },
   },
-  //从本地获取数据
+  //从获取数据
   getters: {
     setLang(state) {
       return state.lang;

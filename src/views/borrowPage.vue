@@ -210,7 +210,6 @@ export default {
 
     //用户输入dbl质押数量时计算质押的数据
     onAmountDBL(e) {
-      // console.log(this.amountDBL)
       if (this.amountDBL === "") {
         this.amountKEY = "";
         return;
@@ -296,8 +295,6 @@ export default {
       let amountDBL = Number(
         (this.amountKEY / this.pledge / this.conversionRate) * 100
       );
-
-      console.log(this.amountKEY, this.pledge, this.conversionRate);
 
       this.amountDBL = this.$toFixedNumber({
         num: amountDBL,

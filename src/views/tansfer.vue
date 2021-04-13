@@ -495,7 +495,7 @@ export default {
         //   } else {
         //     this.$toast(this.$t("home9"));
         //   }
-        //   //获取用户哈希传递到后台
+        //  //获取用户哈希传递到后台
         // });
       } catch (error) {
         this.$toast(this.$t("home9"));
@@ -567,6 +567,7 @@ export default {
         this.balance = this.$toFixedNumber({ num: value, lengths: 2 });
       } catch (error) {
         this.$toast(this.$t("login4"));
+        
         this.balance = 0;
       }
     },

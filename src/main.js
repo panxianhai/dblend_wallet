@@ -57,11 +57,12 @@ Vue.prototype.$fromWei = (val, type) => {
 };
 //用于拼接吧字符串转换成16进制数据
 Vue.prototype.$stringToHex = (str) => {
-  let val = "";
-  for (var i = 0; i < str.length; i++) {
-    val += str.charCodeAt(i).toString(16);
-  }
-  return val;
+  return Web3Provider.utils.toHex(str);
+  // let val = "";
+  // for (var i = 0; i < str.length; i++) {
+  //   val += str.charCodeAt(i).toString(16);
+  // }
+  // return val;
 };
 
 //导入修改科学计数法的转换数据
@@ -73,7 +74,6 @@ Vue.prototype.$toFixedNumber = ({ num, lengths = 2, transition = true }) => {
   lengths != 0 ? (lengths += 1) : (lengths = 0);
 
   num = String(new bigDecimal(num).value);
-
 
   let len = num.indexOf(".");
   if (len !== -1) {

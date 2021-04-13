@@ -6,7 +6,7 @@
           <img src="../assets/image/logohei2x.png" alt />
         </div>
         <div class="home-title-right">
-          <p class="home-ma" v-if="address" @click="$router.push({path:'/ma'})">
+          <p class="home-ma" v-if="address" @click="$router.push({path:'/Ma'})">
             <span class="notification" v-if="notificationNumber">{{notificationNumber}}</span>
             {{titleAddress}}
           </p>
@@ -406,6 +406,7 @@ export default {
   },
   data() {
     return {
+      pp: "",
       userInfo: {
         name: ""
       },
@@ -592,6 +593,7 @@ export default {
     async queryeth() {
       try {
         let ethBalance = await Web3Provider.eth.getBalance(this.address);
+
         let value = this.$fromWei(ethBalance, "ether");
         value = this.$toFixedNumber({ num: value, lengths: 4 });
         this.$set(this.walletBalance, "ETH", value ? value : 0);
@@ -616,10 +618,6 @@ export default {
     },
     //用于查询dbl余额
     async querydbl() {
-      //    let dibiBalance = await dblContract.methods
-      //     .balanceOf(this.address)
-      //     .call();
-      // console.log(dibiBalance)
       try {
         let dibiBalance = await dblContract.methods
           .balanceOf(this.address)
@@ -718,38 +716,39 @@ export default {
     //获取用户余额
     async balance(wallet = 1, val = true) {
       // console.log(this.$store.getters.getData("token"))
-      if (val) {
-        this.walletDIBI = wallet;
-      }
+
+      this.walletDIBI = wallet;
 
       this.queryusdt();
       this.queryeth();
       this.querydibi();
       this.querydbl();
 
-      let { status, data } = await balance();
-      if (status === 200) {
-        this.$nextTick(() => {
-          for (let key in data) {
-            if (key === "USDT") {
-              data[key].balance = this.$toFixedNumber({
-                num: data[key].balance
-              });
-            } else if (key === "DBL" || key === "ETH") {
-              data[key].balance = this.$toFixedNumber({
-                num: data[key].balance,
-                lengths: 4
-              });
-            } else if (key === "DIBI") {
-              data[key].balance = this.$toFixedNumber({
-                num: data[key].balance,
-                lengths: 0
-              });
-            } else {
+      if (wallet == 2) {
+        let { status, data } = await balance();
+        if (status === 200) {
+          this.$nextTick(() => {
+            for (let key in data) {
+              if (key === "USDT") {
+                data[key].balance = this.$toFixedNumber({
+                  num: data[key].balance
+                });
+              } else if (key === "DBL" || key === "ETH") {
+                data[key].balance = this.$toFixedNumber({
+                  num: data[key].balance,
+                  lengths: 4
+                });
+              } else if (key === "DIBI") {
+                data[key].balance = this.$toFixedNumber({
+                  num: data[key].balance,
+                  lengths: 0
+                });
+              } else {
+              }
             }
-          }
-          this.lendWallet = data;
-        });
+            this.lendWallet = data;
+          });
+        }
       }
     },
 

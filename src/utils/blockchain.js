@@ -872,12 +872,12 @@ const usdtContractAddress = "0xdac17f958d2ee523a2206206994597c13d831ec7";
 //dibi的钱包地址
 const dibiContractAddress = "0xf2375Ec44934Fe96eE5FFB8eD597c6f9349771Fd";
 //测试dibi的钱包地址
-//const dibiContractAddressAA = "0x82d1a1268F2A95d8EBEB4868c937DF2038887F5e";
+// const dibiContractAddressAA = "0x82d1a1268F2A95d8EBEB4868c937DF2038887F5e";
 
 //dbl的钱包地址
 const dblContractAddress = "0x3800544c0ad45e2222d67151ff08ee0c476f6221";
 //测试dbl的钱包地址
-//const dblContractAddressAA = "0x451d66BdAECBAa1c379D3AcbbBE1ADb0Df6FAF2D";
+// const dblContractAddressAA = "0x451d66BdAECBAa1c379D3AcbbBE1ADb0Df6FAF2D";
 
 //MetaMask会向网页注入一个全局的API变量window.ethereum
 //初始化过程
@@ -905,6 +905,5 @@ if (typeof window.ethereum !== "undefined") {
   // usdtContract = new Web3Provider.eth.Contract(usdtABI, usdtContractAddressAA);
   // dibiContract = new Web3Provider.eth.Contract(dibiABI, dibiContractAddressAA);
   // dblContract = new Web3Provider.eth.Contract(dibiABI, dblContractAddressAA);
-
   
 }

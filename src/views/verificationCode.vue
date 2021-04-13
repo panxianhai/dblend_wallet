@@ -38,6 +38,7 @@
       >{{$t("ResendEmail")+(countdown?'('+countdown+')':'')}}>></div>
       <!-- <div class="send" style="padding-right:5px;" v-else>倒计时{{countdown}}</div> -->
     </div>
+    <div>{{aaa}}</div>
   </div>
 </template>
 
@@ -69,7 +70,8 @@ export default {
       email: "",
       //密码
       password: "",
-      lang: this.$store.state.lang
+      lang: this.$store.state.lang,
+      aaa: ""
     };
   },
   watch: {
@@ -109,6 +111,7 @@ export default {
     },
     //用户注册
     async onRegister() {
+      this.$toast(this.$t("VerificationCode8"));
       try {
         //判断用户输入的数据格式是否正确
         if (
@@ -142,7 +145,6 @@ export default {
 
           if (status === 200) {
             // this.$toast.clear();
-            // this.$toast.clear();
             this.$store.commit("modifyData", { key: "email", value: "" });
             this.$store.commit("modifyData", { key: "password", value: "" });
             sessionStorage.removeItem("code");
@@ -151,7 +153,7 @@ export default {
               this.$router.push({ path: "/login", query: { login: 1 } });
             }, 1500);
           }
-          this.$toast(this.$t("VerificationCode8"));
+          // this.$toast(this.$t("VerificationCode8"));
           this.request = true;
         }
       } catch (err) {

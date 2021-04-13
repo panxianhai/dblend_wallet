@@ -8,8 +8,8 @@ import zh from "../assets/lang/zh";
 //挂到原型上
 Vue.use(VueI18n);
 
-let lang = JSON.parse(localStorage.getItem("lang")) || "zh";
-
+let lang = localStorage.getItem("lang") ||  "zh";
+//
 document.title = "DBLend";
 
 // 实例化vue-i18n

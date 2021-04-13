@@ -57,7 +57,7 @@ export default {
   },
   mounted() {},
   methods: {
-    //用户登录和注册的验证码
+    //重置密码
     async onConfirm() {
       let password = this.password.trim();
       let Confirmpassword = this.Confirmpassword.trim();
