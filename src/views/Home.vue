@@ -378,6 +378,7 @@
         </div>
       </div>
     </van-popup>-->
+
   </div>
 </template>
    
@@ -406,7 +407,6 @@ export default {
   },
   data() {
     return {
-      pp: "",
       userInfo: {
         name: ""
       },
@@ -718,11 +718,13 @@ export default {
       // console.log(this.$store.getters.getData("token"))
 
       this.walletDIBI = wallet;
-
-      this.queryusdt();
-      this.queryeth();
-      this.querydibi();
-      this.querydbl();
+      if (wallet == 1) {
+        this.queryusdt();
+        this.queryeth();
+        this.querydibi();
+        this.querydbl();
+        return;
+      }
 
       if (wallet == 2) {
         let { status, data } = await balance();

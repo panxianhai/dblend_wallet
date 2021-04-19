@@ -130,6 +130,8 @@
         </div>
       </div>
     </van-popup>
+
+ 
   </div>
 </template>
 
@@ -165,7 +167,8 @@ export default {
       conversionRate: "",
       getData: false,
       //用户的提示数据
-      notificationNumber: {}
+      notificationNumber: {},
+     
     };
   },
   created() {
